@@ -1,9 +1,7 @@
 #include "cub3d.h"
 
-int	init_var(t_var *var, t_map *map, t_info *info)
+int	init_game(t_var *var)
 {
-	var->map = map;
-	var->info = info;
 	var->mlx = mlx_init();
 	if (var->mlx)
 		return (1);

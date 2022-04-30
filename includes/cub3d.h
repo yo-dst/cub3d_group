@@ -3,6 +3,7 @@
 
 # include <stdio.h>
 # include "mlx.h"
+# include "libft.h"
 
 # define W 500
 # define H 500
@@ -52,7 +53,10 @@ int		parse_map(t_map *map, char *map_file);
 void	set_hooks(t_var *var);
 
 //	init.c
-int		init_var(t_var *var, t_map *map, t_info *info);
+int		init_game(t_var *var);
 int		init_info(t_info *info);
+
+//	print_error.c
+void	print_error(char *msg);
 
 #endif

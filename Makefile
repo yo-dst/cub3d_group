@@ -33,6 +33,8 @@ SRC	= 	main.c \
 		parse_map.c	\
 		set_hooks.c	\
 		print_error.c	\
+		utils.c	\
+		draw_scene.c	\
 
 OBJ	=	$(SRC:%.c=%.o)
 
@@ -51,6 +53,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@printf $(CYAN)
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 	@printf $(NC)
+
+run: all
+	./$(NAME) maps/map_0.ber
 
 clean:
 	@make clean -C libft

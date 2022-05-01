@@ -8,6 +8,13 @@
 # define W 500
 # define H 500
 
+# define AZURE 0xf0ffff
+# define BLACK 0x0
+# define GOLD 0xffd700
+# define GREEN_YELLOW 0xadff2f
+# define INDIAN_RED 0xcd5c5c
+# define PINK 0xffc0cb
+
 typedef struct	s_rgb
 {
 	unsigned int	r;
@@ -18,13 +25,13 @@ typedef struct	s_rgb
 typedef struct	s_map
 {
 	char	**map;
-	t_rgb	color_ceil;
-	t_rgb	color_floor;
+	unsigned int	color_ceil;
+	unsigned int	color_floor;
 	/* next vars are for dev, to be replaced later with textures */
-	t_rgb	color_ea;
-	t_rgb	color_no;
-	t_rgb	color_we;
-	t_rgb	color_so;
+	unsigned int	color_ea;
+	unsigned int	color_no;
+	unsigned int	color_we;
+	unsigned int	color_so;
 	/* --- */
 }	t_map;
 
@@ -58,5 +65,12 @@ int		init_info(t_info *info);
 
 //	print_error.c
 void	print_error(char *msg);
+
+//	utils.c
+void			put_pixel(t_var *var, int x, int y, int color);
+unsigned int	rgb_to_int(t_rgb rgb);
+
+//	draw_scene.c
+void	draw_scene(t_var *var);
 
 #endif

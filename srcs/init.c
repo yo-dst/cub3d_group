@@ -3,7 +3,7 @@
 int	init_game(t_var *var)
 {
 	var->mlx = mlx_init();
-	if (var->mlx)
+	if (!var->mlx)
 		return (1);
 	var->win = mlx_new_window(var->mlx, W, H, "cub3d");
 	var->img = mlx_new_image(var->mlx, W, H);

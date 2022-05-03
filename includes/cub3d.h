@@ -4,6 +4,7 @@
 # include <stdio.h>
 # include "mlx.h"
 # include "libft.h"
+# include <math.h>
 
 # define W 500
 # define H 500
@@ -37,8 +38,15 @@ typedef struct	s_map
 
 typedef struct	s_info
 {
-
+	
 }	t_info;
+
+typedef struct	s_player
+{
+	double	direction;
+	double	pos_x;
+	double	pos_y;
+}	t_player;
 
 typedef struct	s_var
 {

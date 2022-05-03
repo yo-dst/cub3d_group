@@ -1,11 +1,20 @@
 #include "cub3d.h"
 
+void	test()
+{
+	double	x = 124234.343;
+
+	printf("%f\n", x);
+	exit(0);
+}
+
 int	main(int ac, char **av)
 {
 	t_var	var;
 	t_map	map;
 	t_info	info;
-
+	
+	//test();
 	if (!av || !*av || parse_map(&map, av[1]))
 		return (1); // parse error
 	init_info(&info);

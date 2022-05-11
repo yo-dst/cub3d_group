@@ -29,8 +29,8 @@ int	main(int ac, char **av)
 		return (1); // mlx error
 	}
 	init_map(&(var.map)->map);
-	var.player.x = (W / 2);
-	var.player.y = (H / 2);
+	var.player.x = ((double)W / 2);
+	var.player.y = ((double)H / 2);
 	var.redisplay = 0;
 	mlx_mouse_move(var.win, W / 2, H / 2);
 	mlx_mouse_get_pos(var.win, &var.mouse_x, &var.mouse_y);

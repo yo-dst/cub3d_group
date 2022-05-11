@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	draw_circle(t_var *var, int x, int y, int radius, int color)
+void	draw_circle(t_var *var, int x, int y, int radius, int color, int full)
 {
 	int	i;
 	int	j;
@@ -13,7 +13,9 @@ void	draw_circle(t_var *var, int x, int y, int radius, int color)
 		while (j < H)
 		{
 			dist = (x - i) * (x - i) + (y - j) * (y - j);
-			if (dist <= radius * radius)
+			if (full && (dist <= radius * radius + 4))
+				put_pixel(var, i, j, color);
+			if (!full && dist >= radius * radius - 4 && dist <= radius * radius + 4)
 				put_pixel(var, i, j, color);
 			j++;
 		}

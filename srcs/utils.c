@@ -4,6 +4,8 @@ void	put_pixel(t_var *var, int x, int y, int color)
 {
 	int	index_pixel;
 
+	if (x < 0 || x >= W || y < 0 || y >= H)
+		return ;
 	index_pixel = y * var->size_line + x * 4;
 	if (var->endian == 1)
 	{

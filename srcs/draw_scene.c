@@ -120,12 +120,12 @@ int	raycast(t_var *var)
 
 void	draw_player(t_var *var)
 {
-	draw_circle(var, var->player.x, var->player.y, 5, INDIAN_RED);
+	draw_circle(var, var->player.x, var->player.y, 5, INDIAN_RED, 1);
 }
 
 void	draw_mouse(t_var *var)
 {
-	draw_circle(var, var->mouse_x, var->mouse_y, 5, BLACK);
+	draw_circle(var, var->mouse_x, var->mouse_y, 5, BLACK, 1);
 }
 
 void	draw_line(t_var *var, int x1, int y1, int x2, int y2)
@@ -146,8 +146,79 @@ void	draw_line(t_var *var, int x1, int y1, int x2, int y2)
 	{
 		curr_pixel = add_vec2(get_vec2(x1, y1), mult_vec2(dir, curr_dist));
 		put_pixel(var, curr_pixel.x, curr_pixel.y, BLACK);
+		put_pixel(var, curr_pixel.x + 1, curr_pixel.y, BLACK);
+		put_pixel(var, curr_pixel.x - 1, curr_pixel.y, BLACK);
+		put_pixel(var, curr_pixel.x, curr_pixel.y + 1, BLACK);
+		put_pixel(var, curr_pixel.x, curr_pixel.y - 1, BLACK);
 		curr_dist += step;
 	}
+}
+
+t_vec2	get_pos_first_wall(t_var *var)
+{
+	int		hit;
+	t_vec2	dir;
+	t_vec2	step;
+	double	curr_dist;
+	double	inter_dist;
+	double	dist;
+	t_vec2	map_pos;
+	t_vec2	side_dist;
+	t_vec2	unit_dist;
+
+	printf("------\n");
+	dir = get_vec2((double)var->mouse_x / L - (double)var->player.x / L, (double)var->mouse_y / L - (double)var->player.y / L);
+
+	dist = sqrt(dir.x * dir.x + dir.y * dir.y); // get dist between points
+	printf("dist: %f\n", dist);
+	dir = get_vec2(dir.x / dist, dir.y / dist); // normalize direction
+	print_vec2("dir", dir);
+	map_pos = get_vec2((int)var->player.x, (int)var->player.y);
+
+	unit_dist.x = sqrt(1 + (dir.y * dir.y  / dir.x * dir.x));
+	unit_dist.y = sqrt((dir.x * dir.x / dir.y * dir.y) + 1);
+	print_vec2("unit_dist", unit_dist);
+
+	if (dir.x > 0)
+	{
+		side_dist.x = ((int)(var->player.x + 1) - var->player.x) * unit_dist.x;
+		step.x = 1;
+	}
+	else
+	{
+		side_dist.x = (var->player.x - (int)var->player.x) * unit_dist.x;
+		step.x = -1;
+	}
+	if (dir.y > 0)
+	{
+		side_dist.y = ((int)(var->player.y + 1) - var->player.y) * unit_dist.y;
+		step.y = 1;
+	}
+	else
+	{
+		side_dist.y = (var->player.y - (int)var->player.y) * unit_dist.y;
+		step.y = -1;
+	}
+	print_vec2("first side_dist", side_dist);
+	while (!hit)
+	{
+		if (side_dist.x < side_dist.y)
+		{
+			inter_dist = side_dist.x;
+			side_dist.x += unit_dist.x;
+			map_pos.x += step.x;
+		}
+		else
+		{
+			inter_dist = side_dist.y;
+			side_dist.y += unit_dist.y;
+			map_pos.y += step.y;
+		}
+		if (var->map->map[(int)map_pos.y][(int)map_pos.x] == WALL)
+			hit = 1;
+	}
+	printf("\n");
+	return (add_vec2(var->player, mult_vec2(dir, inter_dist)));
 }
 
 void	draw_map(t_var *var)
@@ -156,6 +227,7 @@ void	draw_map(t_var *var)
 	int	j;
 	int	block_w;
 	int	block_h;
+	t_vec2	first_wall;
 
 	i = 0;
 	while (i < L * MAP_W)
@@ -176,6 +248,9 @@ void	draw_map(t_var *var)
 	draw_line(var, var->player.x, var->player.y, var->mouse_x, var->mouse_y);
 	draw_player(var);
 	draw_mouse(var);
+	first_wall = get_pos_first_wall(var);
+	print_vec2("first_wall", first_wall);
+	draw_circle(var, (int)first_wall.x, (int)first_wall.y, 5, BLACK, 0);
 	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);
 }
 

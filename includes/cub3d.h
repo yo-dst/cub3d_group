@@ -116,7 +116,7 @@ void	draw_mouse(t_var *var);
 int		exit_game(t_var *var);
 
 //	draw.c
-void	draw_circle(t_var *var, int x, int y, int radius, int color);
+void	draw_circle(t_var *var, int x, int y, int radius, int color, int full);
 void	draw_rect(t_var *var, int x, int y, int w, int h, int color);
 
 //	init_map.c

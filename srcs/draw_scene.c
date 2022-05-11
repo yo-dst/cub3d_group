@@ -2,13 +2,13 @@
 
 t_vec2	plyr;
 
-void	set_vec2(t_vec2 *v, float x, float y)
+void	set_vec2(t_vec2 *v, double x, double y)
 {
 	v->x = x;
 	v->y = y;
 }
 
-t_vec2	get_vec2(float x, float y)
+t_vec2	get_vec2(double x, double y)
 {
 	t_vec2	res;
 
@@ -21,7 +21,7 @@ void	print_vec2(char *pfx, t_vec2 v)
 {
 	if (pfx)
 		printf("%s: ", pfx);
-	printf("(%f, %f)", v.x, v.y);
+	printf("(%f, %f)\n", v.x, v.y);
 }
 
 t_vec2	add_vec2(t_vec2 v1, t_vec2 v2)
@@ -125,11 +125,29 @@ void	draw_player(t_var *var)
 
 void	draw_mouse(t_var *var)
 {
-	int	mouse_x;
-	int	mouse_y;
+	draw_circle(var, var->mouse_x, var->mouse_y, 5, BLACK);
+}
 
-	mlx_mouse_get_pos(var->win, &mouse_x, &mouse_y);
-	draw_circle(var, mouse_x, mouse_y, 5, BLACK);
+void	draw_line(t_var *var, int x1, int y1, int x2, int y2)
+{
+	t_vec2	dir;
+	t_vec2	curr_pixel;
+	double	step;
+	double	curr_dist;
+	int		dist;
+
+	dir = get_vec2(x2 - x1, y2 - y1);
+	dist = sqrt(dir.x * dir.x + dir.y * dir.y); // get dist between points
+	dir = get_vec2(dir.x / dist, dir.y / dist); // normalize direction
+	step = (double)dist / 100;
+	curr_pixel = get_vec2(x1, y1);
+	curr_dist = 0;
+	while (curr_dist < (float)dist)
+	{
+		curr_pixel = add_vec2(get_vec2(x1, y1), mult_vec2(dir, curr_dist));
+		put_pixel(var, curr_pixel.x, curr_pixel.y, BLACK);
+		curr_dist += step;
+	}
 }
 
 void	draw_map(t_var *var)
@@ -155,6 +173,7 @@ void	draw_map(t_var *var)
 		}
 		i++;
 	}
+	draw_line(var, var->player.x, var->player.y, var->mouse_x, var->mouse_y);
 	draw_player(var);
 	draw_mouse(var);
 	mlx_put_image_to_window(var->mlx, var->win, var->img, 0, 0);

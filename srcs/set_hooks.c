@@ -43,6 +43,7 @@ int	loop_hook(t_var *var)
 int	mouse_motion_hook(int x, int y, t_var *var)
 {
 	var->redisplay = 1;
+	mlx_mouse_get_pos(var->win, &var->mouse_x, &var->mouse_y);
 	return (0);
 }
 

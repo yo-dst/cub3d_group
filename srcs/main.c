@@ -32,6 +32,8 @@ int	main(int ac, char **av)
 	var.player.x = (W / 2);
 	var.player.y = (H / 2);
 	var.redisplay = 0;
+	mlx_mouse_move(var.win, W / 2, H / 2);
+	mlx_mouse_get_pos(var.win, &var.mouse_x, &var.mouse_y);
 	//raycast(&var);
 	draw_map(&var);
 	//draw_scene(&var);

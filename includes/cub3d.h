@@ -88,6 +88,8 @@ typedef struct	s_var
 	// test variables
 	t_vec2	player;
 	int		redisplay;
+	int		mouse_x;
+	int		mouse_y;
 }	t_var;
 
 //	parse_map.c

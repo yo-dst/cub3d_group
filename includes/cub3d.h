@@ -5,9 +5,28 @@
 # include "mlx.h"
 # include "libft.h"
 # include <math.h>
+# include "X.h"
 
-# define W 500
-# define H 500
+# define L 40
+# define MAP_H 10
+# define MAP_W 10
+# define W (MAP_W * L)
+# define H (MAP_H * L)
+
+# define HORIZONTAL 0
+# define VERTICAL 1
+
+# define EMPTY 0
+# define WALL 1
+
+# define MOVE_SPEED 10
+
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_RIGHT 124
+# define KEY_LEFT 123
+# define KEY_ESC 53
+
 
 # define AZURE 0xf0ffff
 # define BLACK 0x0
@@ -25,7 +44,7 @@ typedef struct	s_rgb
 
 typedef struct	s_map
 {
-	char	**map;
+	int				**map;
 	unsigned int	color_ceil;
 	unsigned int	color_floor;
 	/* next vars are for dev, to be replaced later with textures */
@@ -35,6 +54,12 @@ typedef struct	s_map
 	unsigned int	color_so;
 	/* --- */
 }	t_map;
+
+typedef struct	s_vec2
+{
+	double	x;
+	double	y;
+}	t_vec2;
 
 typedef struct	s_info
 {
@@ -59,6 +84,10 @@ typedef struct	s_var
 	int		size_line;
 	t_map	*map;
 	t_info	*info;
+
+	// test variables
+	t_vec2	player;
+	int		redisplay;
 }	t_var;
 
 //	parse_map.c
@@ -80,5 +109,15 @@ unsigned int	rgb_to_int(t_rgb rgb);
 
 //	draw_scene.c
 void	draw_scene(t_var *var);
+void	draw_map(t_var *var);
+void	draw_mouse(t_var *var);
+int		exit_game(t_var *var);
+
+//	draw.c
+void	draw_circle(t_var *var, int x, int y, int radius, int color);
+void	draw_rect(t_var *var, int x, int y, int w, int h, int color);
+
+//	init_map.c
+void	init_map(int ***map);
 
 #endif

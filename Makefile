@@ -35,6 +35,8 @@ SRC	= 	main.c \
 		print_error.c	\
 		utils.c	\
 		draw_scene.c	\
+		draw.c	\
+		init_map.c
 
 OBJ	=	$(SRC:%.c=%.o)
 

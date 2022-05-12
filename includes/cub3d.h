@@ -8,8 +8,8 @@
 # include "X.h"
 
 # define L 40
-# define MAP_H 10
-# define MAP_W 10
+# define MAP_H 20
+# define MAP_W 20
 # define W (MAP_W * L)
 # define H (MAP_H * L)
 
@@ -20,6 +20,7 @@
 # define WALL 1
 
 # define MOVE_SPEED 0.25
+# define ROTATE_SPEED 0.1
 
 # define KEY_UP 126
 # define KEY_DOWN 125
@@ -131,5 +132,7 @@ void	print_vec2(char *pfx, t_vec2 v);
 t_vec2	add_vec2(t_vec2 v1, t_vec2 v2);
 t_vec2	mult_vec2(t_vec2 v, float scalar);
 t_vec2	norm_vec2(t_vec2 v);
+t_vec2	inv_vec2(t_vec2 v);
+t_vec2	rotate_vec2(t_vec2 v, double angle);
 
 #endif

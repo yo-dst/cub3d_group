@@ -50,3 +50,22 @@ t_vec2	norm_vec2(t_vec2 v)
 	res.y = v.y / magnitude;
 	return (res);
 }
+
+t_vec2	inv_vec2(t_vec2 v)
+{
+	t_vec2	res;
+
+	res.x = v.x * -1;
+	res.y = v.y * -1;
+	return (res);
+}
+
+// angle must be in radian
+t_vec2	rotate_vec2(t_vec2 v, double angle)
+{
+	t_vec2	res;
+
+	res.x = v.x * cos(angle) - v.y * sin(angle);
+	res.y = v.x * sin(angle) + v.y * cos(angle);
+	return (res);
+}

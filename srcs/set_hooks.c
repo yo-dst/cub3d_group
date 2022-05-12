@@ -33,13 +33,19 @@ int	key_hook(int keycode, t_var *var)
 		exit_game(var);
 	var->redisplay = 1;
 	if (keycode == KEY_UP)
-		var->player.pos.y -= MOVE_SPEED;
+		var->player.pos = add_vec2(var->player.pos, mult_vec2(var->player.dir, MOVE_SPEED));
 	else if (keycode == KEY_DOWN)
-		var->player.pos.y += MOVE_SPEED;
+		var->player.pos = add_vec2(var->player.pos, mult_vec2(inv_vec2(var->player.dir), MOVE_SPEED));
 	else if (keycode == KEY_RIGHT)
-		var->player.pos.x += MOVE_SPEED;
+	{
+		var->player.dir = rotate_vec2(var->player.dir, -ROTATE_SPEED);
+		var->player.camera = rotate_vec2(var->player.camera, -ROTATE_SPEED);
+	}
 	else if (keycode == KEY_LEFT)
-		var->player.pos.x -= MOVE_SPEED;
+	{
+		var->player.dir = rotate_vec2(var->player.dir, ROTATE_SPEED);
+		var->player.camera = rotate_vec2(var->player.camera, ROTATE_SPEED);
+	}
 	else
 		var->redisplay = 0;
 	return (0);

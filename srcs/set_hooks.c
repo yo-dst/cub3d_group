@@ -1,5 +1,22 @@
 #include "cub3d.h"
 
+int	exit_game(t_var *var)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAP_H)
+		free(var->map->map[i++]);
+	free(var->map->map);
+	if (var->img)
+		mlx_destroy_image(var->mlx, var->img);
+	if (var->win)
+		mlx_destroy_window(var->mlx, var->win);
+	system("leaks cub3d");
+	exit(0);
+	return (0);
+}
+
 int	mouse_hook(int button, int x,int y, t_var *var)
 {
 	if (!(x >= 0 && x < W && y >= 0 && y < H))
@@ -18,13 +35,13 @@ int	key_hook(int keycode, t_var *var)
 		exit_game(var);
 	var->redisplay = 1;
 	if (keycode == KEY_UP)
-		var->player.y -= MOVE_SPEED;
+		var->player.pos.y -= MOVE_SPEED;
 	else if (keycode == KEY_DOWN)
-		var->player.y += MOVE_SPEED;
+		var->player.pos.y += MOVE_SPEED;
 	else if (keycode == KEY_RIGHT)
-		var->player.x += MOVE_SPEED;
+		var->player.pos.x += MOVE_SPEED;
 	else if (keycode == KEY_LEFT)
-		var->player.x -= MOVE_SPEED;
+		var->player.pos.x -= MOVE_SPEED;
 	else
 		var->redisplay = 0;
 	return (0);
@@ -32,6 +49,7 @@ int	key_hook(int keycode, t_var *var)
 
 int	loop_hook(t_var *var)
 {
+	// must limit fps
 	if (var->redisplay)
 	{
 		draw_map(var);
@@ -44,23 +62,6 @@ int	mouse_motion_hook(int x, int y, t_var *var)
 {
 	var->redisplay = 1;
 	mlx_mouse_get_pos(var->win, &var->mouse_x, &var->mouse_y);
-	return (0);
-}
-
-int	exit_game(t_var *var)
-{
-	int	i;
-
-	i = 0;
-	while (i < MAP_H)
-		free(var->map->map[i++]);
-	free(var->map->map);
-	if (var->img)
-		mlx_destroy_image(var->mlx, var->img);
-	if (var->win)
-		mlx_destroy_window(var->mlx, var->win);
-	system("leaks cub3d");
-	exit(0);
 	return (0);
 }
 

@@ -34,9 +34,10 @@ SRC	= 	main.c \
 		set_hooks.c	\
 		print_error.c	\
 		utils.c	\
-		draw_scene.c	\
+		draw_game.c	\
 		draw.c	\
-		init_map.c
+		init_map.c	\
+		vec2.c
 
 OBJ	=	$(SRC:%.c=%.o)
 

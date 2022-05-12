@@ -19,7 +19,7 @@
 # define EMPTY 0
 # define WALL 1
 
-# define MOVE_SPEED 10
+# define MOVE_SPEED 0.25
 
 # define KEY_UP 126
 # define KEY_DOWN 125
@@ -68,9 +68,9 @@ typedef struct	s_info
 
 typedef struct	s_player
 {
-	double	direction;
-	double	pos_x;
-	double	pos_y;
+	t_vec2	pos;
+	t_vec2	dir;
+	t_vec2	camera;
 }	t_player;
 
 typedef struct	s_var
@@ -86,7 +86,7 @@ typedef struct	s_var
 	t_info	*info;
 
 	// test variables
-	t_vec2	player;
+	t_player	player;
 	int		redisplay;
 	int		mouse_x;
 	int		mouse_y;
@@ -109,17 +109,24 @@ void	print_error(char *msg);
 void			put_pixel(t_var *var, int x, int y, int color);
 unsigned int	rgb_to_int(t_rgb rgb);
 
-//	draw_scene.c
-void	draw_scene(t_var *var);
+//	draw_game.c
 void	draw_map(t_var *var);
-void	draw_mouse(t_var *var);
-int		exit_game(t_var *var);
+void	draw_game(t_var *var);
 
 //	draw.c
 void	draw_circle(t_var *var, int x, int y, int radius, int color, int full);
 void	draw_rect(t_var *var, int x, int y, int w, int h, int color);
+void	draw_line(t_var *var, int x1, int y1, int x2, int y2);
 
 //	init_map.c
 void	init_map(int ***map);
+
+//	vec2.c
+void	set_vec2(t_vec2 *v, double x, double y);
+t_vec2	get_vec2(double x, double y);
+void	print_vec2(char *pfx, t_vec2 v);
+t_vec2	add_vec2(t_vec2 v1, t_vec2 v2);
+t_vec2	mult_vec2(t_vec2 v, float scalar);
+t_vec2	norm_vec2(t_vec2 v);
 
 #endif

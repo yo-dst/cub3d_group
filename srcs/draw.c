@@ -41,3 +41,38 @@ void	draw_rect(t_var *var, int x, int y, int w, int h, int color)
 		i++;
 	}
 }
+
+void	draw_line(t_var *var, int x1, int y1, int x2, int y2)
+{
+	t_vec2	dir;
+	t_vec2	curr_pixel;
+	t_vec2	step;
+	double	curr_dist;
+	double	dist;
+	t_vec2	unit_dist;
+	t_vec2	side_dist;
+
+	dir = get_vec2(x2 - x1, y2 - y1);
+	dist = sqrt(dir.x * dir.x + dir.y * dir.y);
+	dir = get_vec2(dir.x / dist, dir.y / dist);
+	unit_dist.x = sqrt(1 + ((dir.y / dir.x) * (dir.y / dir.x)));
+	unit_dist.y = sqrt(1 + ((dir.x / dir.y) * (dir.x / dir.y)));
+	curr_pixel = get_vec2(x1, y1);
+	curr_dist = 0;
+	side_dist = unit_dist;
+	while (curr_dist < dist)
+	{
+		if (side_dist.x < side_dist.y)
+		{
+			curr_dist = side_dist.x;
+			side_dist.x += unit_dist.x;
+		}
+		else
+		{
+			curr_dist = side_dist.y;
+			side_dist.y += unit_dist.y;
+		}
+		curr_pixel = add_vec2(get_vec2(x1, y1), mult_vec2(dir, curr_dist));
+		put_pixel(var, curr_pixel.x, curr_pixel.y, BLACK);
+	}
+}

@@ -1,14 +1,7 @@
 #include "cub3d.h"
 
-int		raycast();
-void	draw_map(t_var *var);
-void	draw_player(t_var *var);
-
 void	test()
 {
-	double	x = 124234.343;
-
-	printf("%f\n", x);
 	exit(0);
 }
 
@@ -29,14 +22,12 @@ int	main(int ac, char **av)
 		return (1); // mlx error
 	}
 	init_map(&(var.map)->map);
-	var.player.x = ((double)W / 2);
-	var.player.y = ((double)H / 2);
-	var.redisplay = 0;
+	var.redisplay = 1;
+	var.player.pos = get_vec2(W / 2 / L, H / 2 / L);
+	var.player.dir = get_vec2(0, 1);
+	var.player.camera = get_vec2(0.66, 0);
 	mlx_mouse_move(var.win, W / 2, H / 2);
 	mlx_mouse_get_pos(var.win, &var.mouse_x, &var.mouse_y);
-	//raycast(&var);
-	draw_map(&var);
-	//draw_scene(&var);
 	set_hooks(&var);
 	mlx_loop(var.mlx);
 	printf("working on it :)\n");

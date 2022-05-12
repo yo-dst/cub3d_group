@@ -169,11 +169,12 @@ int	get_wall_height(t_var *var, t_vec2 ray_dir)
 {
 	t_vec2	wall_hit;
 	double	wall_dist;
-	int		height;
+	int		wall_height;
 
 	wall_hit = get_wall_hit(var, ray_dir);
 	wall_dist = get_dist(var->player.pos, wall_hit);
 	// find wall height
+	return (wall_height);
 }
 
 void	draw_ray(t_var *var, t_vec2 ray_dir)

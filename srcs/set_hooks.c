@@ -8,10 +8,8 @@ int	exit_game(t_var *var)
 	while (i < MAP_H)
 		free(var->map->map[i++]);
 	free(var->map->map);
-	if (var->img)
-		mlx_destroy_image(var->mlx, var->img);
-	if (var->win)
-		mlx_destroy_window(var->mlx, var->win);
+	mlx_destroy_image(var->mlx, var->img);
+	mlx_destroy_window(var->mlx, var->win);
 	system("leaks cub3d");
 	exit(0);
 	return (0);

@@ -8,8 +8,8 @@
 # include "X.h"
 
 # define L 40
-# define MAP_H 20
-# define MAP_W 20
+# define MAP_H 10
+# define MAP_W 10
 # define W (MAP_W * L)
 # define H (MAP_H * L)
 

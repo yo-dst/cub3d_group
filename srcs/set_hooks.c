@@ -57,7 +57,8 @@ int	loop_hook(t_var *var)
 	// must limit fps
 	if (var->redisplay)
 	{
-		draw_map(var);
+		//draw_map(var);
+		draw_game(var);
 		var->redisplay = 0;
 	}
 	return (0);

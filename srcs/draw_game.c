@@ -104,14 +104,84 @@ void	draw_map(t_var *var)
 
 // -----------------------------------------------
 
-void	draw_ray(t_var *var, t_vec2 ray_dir)
+t_vec2	get_first_side_dist(t_var *var, t_vec2 ray_dir, t_vec2 unit_dist)
 {
-	int		hit;
+	t_vec2	side_dist;
+
+	if (ray_dir.x > 0)
+		side_dist.x = ((int)(var->player.pos.x + 1) - var->player.pos.x) * unit_dist.x;
+	else
+		side_dist.x = (var->player.pos.x - (int)var->player.pos.x) * unit_dist.x;
+	if (ray_dir.y > 0)
+		side_dist.y = ((int)(var->player.pos.y + 1) - var->player.pos.y) * unit_dist.y;
+	else
+		side_dist.y = (var->player.pos.y - (int)var->player.pos.y) * unit_dist.y;
+	return (side_dist);
+}
+
+t_vec2	get_step(t_vec2 ray_dir)
+{
+	t_vec2	step;
+
+	if (ray_dir.x > 0)
+		step.x = 1;
+	else
+		step.x = -1;
+	if (ray_dir.y > 0)
+		step.y = 1;
+	else
+		step.y = -1;
+	return (step);
+}
+
+t_vec2	get_wall_hit(t_var *var, t_vec2 ray_dir)
+{
 	t_vec2	step;
 	t_vec2	curr_cell;
-	double	curr_dist;
-	t_vec2	side_dist;
 	t_vec2	unit_dist;
+	t_vec2	side_dist;
+	double	curr_dist;
+
+	step = get_step(ray_dir);
+	curr_cell = get_vec2((int)var->player.pos.x, (int)var->player.pos.y);
+	unit_dist.x = sqrt(1 + ((ray_dir.y / ray_dir.x) * (ray_dir.y / ray_dir.x)));
+	unit_dist.y = sqrt(1 + ((ray_dir.x / ray_dir.y) * (ray_dir.x / ray_dir.y)));
+	side_dist = get_first_side_dist(var, ray_dir, unit_dist);
+	while (var->map->map[(int)curr_cell.y][(int)curr_cell.x] != WALL)
+	{
+		if (side_dist.x < side_dist.y)
+		{
+			curr_dist = side_dist.x;
+			side_dist.x += unit_dist.x;
+			curr_cell.x += step.x;
+		}
+		else
+		{
+			curr_dist = side_dist.y;
+			side_dist.y += unit_dist.y;
+			curr_cell.y += step.y;
+		}
+	}
+	return (add_vec2(var->player.pos, mult_vec2(ray_dir, curr_dist)));
+}
+
+int	get_wall_height(t_var *var, t_vec2 ray_dir)
+{
+	t_vec2	wall_hit;
+	double	wall_dist;
+	int		height;
+
+	wall_hit = get_wall_hit(var, ray_dir);
+	wall_dist = get_dist(var->player.pos, wall_hit);
+	// find wall height
+}
+
+void	draw_ray(t_var *var, t_vec2 ray_dir)
+{
+	int	wall_height;
+
+	wall_height = get_wall_height(var, ray_dir);
+	// draw ray
 }
 
 void	draw_rays(t_var *var)

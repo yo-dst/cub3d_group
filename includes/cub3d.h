@@ -90,6 +90,8 @@ typedef struct	s_var
 	int		redisplay;
 	int		mouse_x;
 	int		mouse_y;
+
+	// var utils to raycast
 }	t_var;
 
 //	parse_map.c
@@ -108,6 +110,7 @@ void	print_error(char *msg);
 //	utils.c
 void			put_pixel(t_var *var, int x, int y, int color);
 unsigned int	rgb_to_int(t_rgb rgb);
+double			get_dist(t_vec2 v1, t_vec2 v2);
 
 //	draw_game.c
 void	draw_map(t_var *var);

@@ -27,3 +27,8 @@ unsigned int	rgb_to_int(t_rgb rgb)
 {
 	return (rgb.r << 16 | rgb.g << 8 | rgb.b);
 }
+
+double	get_dist(t_vec2 v1, t_vec2 v2)
+{
+	return (sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y)));
+}

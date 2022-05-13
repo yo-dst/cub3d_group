@@ -19,16 +19,16 @@ int	mouse_motion_hook(int x, int y, t_var *var)
 {
 	var->redisplay = 1;
 	mlx_mouse_get_pos(var->win, &var->mouse_x, &var->mouse_y);
-	if (var->mouse_x < 0)
-		var->mouse_x = 0;
-	else if (var->mouse_x >= W)
-		var->mouse_x = W - 1;
-	if (var->mouse_x == 0 || var->mouse_x < var->old_mouse_x)
+	if (var->key.left != PRESSED
+		&& (var->mouse_x < var->old_mouse_x
+		|| (var->mouse_x < 0 && var->mouse_x == var->old_mouse_x)))
 	{
 		var->player_dir = rotate_vec2(var->player_dir, ROTATE_SPEED);
 		var->camera = rotate_vec2(var->camera, ROTATE_SPEED);
 	}
-	else if (var->mouse_x == W - 1 || var->mouse_x > var->old_mouse_x)
+	else if (var->key.right != PRESSED
+		&& (var->mouse_x > var->old_mouse_x
+		|| (var->mouse_x >= W && var->mouse_x == var->old_mouse_x)))
 	{
 		var->player_dir = rotate_vec2(var->player_dir, -ROTATE_SPEED);
 		var->camera = rotate_vec2(var->camera, -ROTATE_SPEED);

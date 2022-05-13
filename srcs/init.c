@@ -12,8 +12,3 @@ int	init_game(t_var *var)
 	var->img_data = mlx_get_data_addr(var->img, &var->bpp, &var->size_line, &var->endian);
 	return (0);
 }
-
-int	init_info(t_info *info)
-{
-	return (0);
-}

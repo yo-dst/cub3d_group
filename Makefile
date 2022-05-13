@@ -37,7 +37,8 @@ SRC	= 	main.c \
 		draw_game.c	\
 		draw.c	\
 		init_map.c	\
-		vec2.c
+		vec2.c	\
+		time.c
 
 OBJ	=	$(SRC:%.c=%.o)
 

@@ -6,12 +6,15 @@
 # include "libft.h"
 # include <math.h>
 # include "X.h"
+# include <sys/time.h>
 
 # define L 40
 # define MAP_H 20
 # define MAP_W 20
 # define W (MAP_W * L)
 # define H (MAP_H * L)
+
+# define T_PER_FRAME (1000.0 / 60)
 
 # define HORIZONTAL 0
 # define VERTICAL 1
@@ -61,11 +64,6 @@ typedef struct	s_vec2
 	double	y;
 }	t_vec2;
 
-typedef struct	s_info
-{
-	
-}	t_info;
-
 typedef struct	s_player
 {
 	t_vec2	pos;
@@ -83,16 +81,12 @@ typedef struct	s_var
 	int		bpp;
 	int		size_line;
 	t_map	*map;
-	t_info	*info;
-
-	// test variables
 	t_player	player;
 	int		redisplay;
 	int		mouse_x;
 	int		mouse_y;
 	int		old_mouse_x;
-
-	// var utils to raycast
+	unsigned long	t_last_frame;
 }	t_var;
 
 //	parse_map.c
@@ -103,7 +97,6 @@ void	set_hooks(t_var *var);
 
 //	init.c
 int		init_game(t_var *var);
-int		init_info(t_info *info);
 
 //	print_error.c
 void	print_error(char *msg);
@@ -134,5 +127,9 @@ t_vec2	mult_vec2(t_vec2 v, float scalar);
 t_vec2	norm_vec2(t_vec2 v);
 t_vec2	inv_vec2(t_vec2 v);
 t_vec2	rotate_vec2(t_vec2 v, double angle);
+
+//	time.c
+long	get_time(void);
+long	time_diff(long start, long end);
 
 #endif

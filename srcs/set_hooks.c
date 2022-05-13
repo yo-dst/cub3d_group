@@ -78,11 +78,14 @@ int	mouse_motion_hook(int x, int y, t_var *var)
 
 int	loop_hook(t_var *var)
 {
-	// must limit fps
-	if (var->redisplay)
+	long	t;
+
+	t = get_time();
+	if (var->redisplay && time_diff(var->t_last_frame, t) > T_PER_FRAME)
 	{
 		//draw_map(var);
 		draw_game(var);
+		var->t_last_frame = t;
 		var->redisplay = 0;
 	}
 	return (0);

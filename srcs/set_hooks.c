@@ -25,13 +25,13 @@ int	mouse_motion_hook(int x, int y, t_var *var)
 		var->mouse_x = W - 1;
 	if (var->mouse_x == 0 || var->mouse_x < var->old_mouse_x)
 	{
-		var->player.dir = rotate_vec2(var->player.dir, ROTATE_SPEED);
-		var->player.camera = rotate_vec2(var->player.camera, ROTATE_SPEED);
+		var->player_dir = rotate_vec2(var->player_dir, ROTATE_SPEED);
+		var->camera = rotate_vec2(var->camera, ROTATE_SPEED);
 	}
 	else if (var->mouse_x == W - 1 || var->mouse_x > var->old_mouse_x)
 	{
-		var->player.dir = rotate_vec2(var->player.dir, -ROTATE_SPEED);
-		var->player.camera = rotate_vec2(var->player.camera, -ROTATE_SPEED);
+		var->player_dir = rotate_vec2(var->player_dir, -ROTATE_SPEED);
+		var->camera = rotate_vec2(var->camera, -ROTATE_SPEED);
 	}
 	else
 		var->redisplay = 0;
@@ -43,30 +43,30 @@ void	move_player(t_var *var, t_vec2 dir)
 {
 	t_vec2	next_pos;
 
-	next_pos = add_vec2(var->player.pos, mult_vec2(dir, MOVE_SPEED));
+	next_pos = add_vec2(var->player, mult_vec2(dir, MOVE_SPEED));
 	if (var->map[(int)next_pos.y][(int)next_pos.x] != WALL)
-		var->player.pos = next_pos;
+		var->player = next_pos;
 }
 
 void	handle_key(t_var *var)
 {
 	if (var->key.z == PRESSED)
-		move_player(var, var->player.dir);
+		move_player(var, var->player_dir);
 	if (var->key.s == PRESSED)
-		move_player(var, inv_vec2(var->player.dir));
+		move_player(var, inv_vec2(var->player_dir));
 	if (var->key.q == PRESSED)
-		move_player(var, get_vec2(-var->player.dir.y, var->player.dir.x));
+		move_player(var, get_vec2(-var->player_dir.y, var->player_dir.x));
 	if (var->key.d == PRESSED)
-		move_player(var, get_vec2(var->player.dir.y, -var->player.dir.x));
+		move_player(var, get_vec2(var->player_dir.y, -var->player_dir.x));
 	if (var->key.left == PRESSED)
 	{
-		var->player.dir = rotate_vec2(var->player.dir, ROTATE_SPEED);
-		var->player.camera = rotate_vec2(var->player.camera, ROTATE_SPEED);
+		var->player_dir = rotate_vec2(var->player_dir, ROTATE_SPEED);
+		var->camera = rotate_vec2(var->camera, ROTATE_SPEED);
 	}
 	if (var->key.right == PRESSED)
 	{
-		var->player.dir = rotate_vec2(var->player.dir, -ROTATE_SPEED);
-		var->player.camera = rotate_vec2(var->player.camera, -ROTATE_SPEED);
+		var->player_dir = rotate_vec2(var->player_dir, -ROTATE_SPEED);
+		var->camera = rotate_vec2(var->camera, -ROTATE_SPEED);
 	}
 }
 

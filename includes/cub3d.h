@@ -62,13 +62,6 @@ typedef struct	s_vec2
 	double	y;
 }	t_vec2;
 
-typedef struct	s_player
-{
-	t_vec2	pos;
-	t_vec2	dir;
-	t_vec2	camera;
-}	t_player;
-
 typedef struct	s_key
 {	
 	int	z;
@@ -88,7 +81,6 @@ typedef struct	s_var
 	int				endian;
 	int				bpp;
 	int				size_line;
-	t_player		player;
 	int				redisplay;
 	int				mouse_x;
 	int				mouse_y;
@@ -97,6 +89,9 @@ typedef struct	s_var
 	t_key			key;
 	int				**map;
 	unsigned int	color[6];
+	t_vec2			player;
+	t_vec2			player_dir;
+	t_vec2			camera;
 }	t_var;
 
 //	parse_map.c

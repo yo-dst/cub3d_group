@@ -8,7 +8,6 @@ void	test()
 int	main(int ac, char **av)
 {
 	t_var	var;
-	t_map	map;
 	
 	if (!av || !*av || parse(&var, av[1]))
 		return (1); // parse error
@@ -20,9 +19,9 @@ int	main(int ac, char **av)
 	init_key(&var.key);
 	var.redisplay = 1;
 	var.t_last_frame = get_time();
-	var.player.pos = get_vec2(MAP_W / 2, MAP_H / 2);
-	var.player.dir = get_vec2(0, 1);
-	var.player.camera = get_vec2(0.66, 0);
+	var.player = get_vec2(MAP_W / 2, MAP_H / 2);
+	var.player_dir = get_vec2(0, 1);
+	var.camera = get_vec2(0.66, 0);
 	mlx_mouse_move(var.win, W / 2, H / 2);
 	mlx_mouse_get_pos(var.win, &var.mouse_x, &var.mouse_y);
 	var.old_mouse_x = var.mouse_x;

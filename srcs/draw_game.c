@@ -5,13 +5,13 @@ t_vec2	get_first_side_dist(t_var *var, t_vec2 ray_dir, t_vec2 unit_dist)
 	t_vec2	side_dist;
 
 	if (ray_dir.x > 0)
-		side_dist.x = ((int)(var->player.pos.x + 1) - var->player.pos.x) * unit_dist.x;
+		side_dist.x = ((int)(var->player.x + 1) - var->player.x) * unit_dist.x;
 	else
-		side_dist.x = (var->player.pos.x - (int)var->player.pos.x) * unit_dist.x;
+		side_dist.x = (var->player.x - (int)var->player.x) * unit_dist.x;
 	if (ray_dir.y > 0)
-		side_dist.y = ((int)(var->player.pos.y + 1) - var->player.pos.y) * unit_dist.y;
+		side_dist.y = ((int)(var->player.y + 1) - var->player.y) * unit_dist.y;
 	else
-		side_dist.y = (var->player.pos.y - (int)var->player.pos.y) * unit_dist.y;
+		side_dist.y = (var->player.y - (int)var->player.y) * unit_dist.y;
 	return (side_dist);
 }
 
@@ -39,7 +39,7 @@ t_vec2	get_wall_hit(t_var *var, t_vec2 ray_dir, int *side_hit)
 	int		side;
 
 	step = get_step(ray_dir);
-	curr_cell = get_vec2((int)var->player.pos.x, (int)var->player.pos.y);
+	curr_cell = get_vec2((int)var->player.x, (int)var->player.y);
 	unit_dist.x = sqrt(1 + ((ray_dir.y / ray_dir.x) * (ray_dir.y / ray_dir.x)));
 	unit_dist.y = sqrt(1 + ((ray_dir.x / ray_dir.y) * (ray_dir.x / ray_dir.y)));
 	side_dist = get_first_side_dist(var, ray_dir, unit_dist);
@@ -67,9 +67,9 @@ t_vec2	get_wall_hit(t_var *var, t_vec2 ray_dir, int *side_hit)
 	else if (side == HORIZONTAL && step.y < 0)
 		*side_hit = NO;
 	if (side == VERTICAL)
-		return (add_vec2(var->player.pos, mult_vec2(ray_dir, side_dist.x - unit_dist.x)));
+		return (add_vec2(var->player, mult_vec2(ray_dir, side_dist.x - unit_dist.x)));
 	else
-		return (add_vec2(var->player.pos, mult_vec2(ray_dir, side_dist.y - unit_dist.y)));
+		return (add_vec2(var->player, mult_vec2(ray_dir, side_dist.y - unit_dist.y)));
 }
 
 int	get_wall_height(t_var *var, t_vec2 ray_dir, int *side_hit)
@@ -80,9 +80,9 @@ int	get_wall_height(t_var *var, t_vec2 ray_dir, int *side_hit)
 	int		wall_height;
 
 	wall_hit = get_wall_hit(var, ray_dir, side_hit);
-	wall_dist = get_dist(var->player.pos, wall_hit);
-	wall_vec = get_vec2(wall_hit.x - var->player.pos.x, wall_hit.y - var->player.pos.y);
-	wall_dist = wall_vec.x * var->player.dir.x + wall_vec.y * var->player.dir.y; // vector scalar projection
+	wall_dist = get_dist(var->player, wall_hit);
+	wall_vec = get_vec2(wall_hit.x - var->player.x, wall_hit.y - var->player.y);
+	wall_dist = wall_vec.x * var->player_dir.x + wall_vec.y * var->player_dir.y; // vector scalar projection
 	wall_height = (int)((double)H / wall_dist);
 	return (wall_height);
 }
@@ -117,7 +117,7 @@ void	draw_rays(t_var *var)
 	while (ray_x < W)
 	{
 		camera_x = 2 * (double)ray_x / W - 1;
-		ray_dir = add_vec2(var->player.dir, mult_vec2(var->player.camera, camera_x));
+		ray_dir = add_vec2(var->player_dir, mult_vec2(var->camera, camera_x));
 		ray_dir = norm_vec2(ray_dir);
 		draw_ray(var, ray_x, ray_dir);
 		ray_x++;

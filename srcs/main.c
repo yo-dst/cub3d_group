@@ -28,7 +28,6 @@ int	main(int ac, char **av)
 	mlx_mouse_move(var.win, W / 2, H / 2);
 	mlx_mouse_get_pos(var.win, &var.mouse_x, &var.mouse_y);
 	var.old_mouse_x = var.mouse_x;
-	//mlx_mouse_hide();
 	set_hooks(&var);
 	mlx_loop(var.mlx);
 	printf("working on it :)\n");

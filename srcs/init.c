@@ -12,3 +12,13 @@ int	init_game(t_var *var)
 	var->img_data = mlx_get_data_addr(var->img, &var->bpp, &var->size_line, &var->endian);
 	return (0);
 }
+
+void	init_key(t_key *key)
+{
+	key->z = RELEASED;
+	key->s = RELEASED;
+	key->q = RELEASED;
+	key->d = RELEASED;
+	key->left = RELEASED;
+	key->right = RELEASED;
+}

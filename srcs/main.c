@@ -19,14 +19,16 @@ int	main(int ac, char **av)
 		return (1); // mlx error
 	}
 	init_map(&(var.map)->map);
+	init_key(&var.key);
 	var.redisplay = 1;
 	var.t_last_frame = get_time();
-	var.player.pos = get_vec2(W / 2 / L, H / 2 / L);
+	var.player.pos = get_vec2(MAP_W / 2, MAP_H / 2);
 	var.player.dir = get_vec2(0, 1);
 	var.player.camera = get_vec2(0.66, 0);
 	mlx_mouse_move(var.win, W / 2, H / 2);
 	mlx_mouse_get_pos(var.win, &var.mouse_x, &var.mouse_y);
 	var.old_mouse_x = var.mouse_x;
+	//mlx_mouse_hide();
 	set_hooks(&var);
 	mlx_loop(var.mlx);
 	printf("working on it :)\n");

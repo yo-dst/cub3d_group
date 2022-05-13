@@ -8,28 +8,32 @@
 # include "X.h"
 # include <sys/time.h>
 
-# define L 40
 # define MAP_H 20
 # define MAP_W 20
-# define W (MAP_W * L)
-# define H (MAP_H * L)
+# define W 800
+# define H 800
 
 # define T_PER_FRAME (1000.0 / 60)
 
 # define HORIZONTAL 0
 # define VERTICAL 1
 
+# define PRESSED 0
+# define RELEASED 1
+
 # define EMPTY 0
 # define WALL 1
 
-# define MOVE_SPEED 0.25
-# define ROTATE_SPEED 0.1
+# define MOVE_SPEED 0.05
+# define ROTATE_SPEED 0.03
 
-# define KEY_UP 126
-# define KEY_DOWN 125
 # define KEY_RIGHT 124
 # define KEY_LEFT 123
 # define KEY_ESC 53
+# define KEY_Z 13
+# define KEY_S 1
+# define KEY_Q 0
+# define KEY_D 2
 
 # define AZURE 0xf0ffff
 # define BLACK 0x0
@@ -71,6 +75,16 @@ typedef struct	s_player
 	t_vec2	camera;
 }	t_player;
 
+typedef struct	s_key
+{	
+	int	z;
+	int	s;
+	int	q;
+	int	d;
+	int	left;
+	int	right;
+}	t_key;
+
 typedef struct	s_var
 {
 	void	*mlx;
@@ -87,6 +101,7 @@ typedef struct	s_var
 	int		mouse_y;
 	int		old_mouse_x;
 	unsigned long	t_last_frame;
+	t_key	key;
 }	t_var;
 
 //	parse_map.c
@@ -117,6 +132,7 @@ void	draw_line(t_var *var, int x1, int y1, int x2, int y2);
 
 //	init_map.c
 void	init_map(int ***map);
+void	init_key(t_key *key);
 
 //	vec2.c
 void	set_vec2(t_vec2 *v, double x, double y);

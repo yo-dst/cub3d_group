@@ -56,14 +56,6 @@ typedef struct	s_rgb
 	unsigned int	b;
 }	t_rgb;
 
-typedef struct	s_map
-{
-	int				**map;
-	/* next vars are for dev, to be replaced later with textures */
-	unsigned int	color[6];
-	/* --- */
-}	t_map;
-
 typedef struct	s_vec2
 {
 	double	x;

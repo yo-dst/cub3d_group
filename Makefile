@@ -30,7 +30,7 @@ HEADERS	=	-I$(I_DIR) -Ilibft/includes -Iminilibx
 
 SRC	= 	main.c \
 		init.c	\
-		parse_map.c	\
+		parse.c	\
 		set_hooks.c	\
 		print_error.c	\
 		utils.c	\

@@ -35,6 +35,13 @@
 # define KEY_Q 0
 # define KEY_D 2
 
+# define NO 0
+# define SO 1
+# define EA 2
+# define WE 3
+# define CEIL 4
+# define FLOOR 5
+
 # define AZURE 0xf0ffff
 # define BLACK 0x0
 # define GOLD 0xffd700
@@ -52,13 +59,8 @@ typedef struct	s_rgb
 typedef struct	s_map
 {
 	int				**map;
-	unsigned int	color_ceil;
-	unsigned int	color_floor;
 	/* next vars are for dev, to be replaced later with textures */
-	unsigned int	color_ea;
-	unsigned int	color_no;
-	unsigned int	color_we;
-	unsigned int	color_so;
+	unsigned int	color[6];
 	/* --- */
 }	t_map;
 
@@ -87,25 +89,26 @@ typedef struct	s_key
 
 typedef struct	s_var
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*img_data;
-	int		endian;
-	int		bpp;
-	int		size_line;
-	t_map	*map;
-	t_player	player;
-	int		redisplay;
-	int		mouse_x;
-	int		mouse_y;
-	int		old_mouse_x;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*img_data;
+	int				endian;
+	int				bpp;
+	int				size_line;
+	t_player		player;
+	int				redisplay;
+	int				mouse_x;
+	int				mouse_y;
+	int				old_mouse_x;
 	unsigned long	t_last_frame;
-	t_key	key;
+	t_key			key;
+	int				**map;
+	unsigned int	color[6];
 }	t_var;
 
 //	parse_map.c
-int		parse_map(t_map *map, char *map_file);
+int		parse(t_var *var, char *map_file);
 
 //	set_hooks.c
 void	set_hooks(t_var *var);

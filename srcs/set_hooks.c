@@ -6,8 +6,8 @@ int	exit_game(t_var *var)
 
 	i = 0;
 	while (i < MAP_H)
-		free(var->map->map[i++]);
-	free(var->map->map);
+		free(var->map[i++]);
+	free(var->map);
 	mlx_destroy_image(var->mlx, var->img);
 	mlx_destroy_window(var->mlx, var->win);
 	system("leaks cub3d");
@@ -44,7 +44,7 @@ void	move_player(t_var *var, t_vec2 dir)
 	t_vec2	next_pos;
 
 	next_pos = add_vec2(var->player.pos, mult_vec2(dir, MOVE_SPEED));
-	if (var->map->map[(int)next_pos.y][(int)next_pos.x] != WALL)
+	if (var->map[(int)next_pos.y][(int)next_pos.x] != WALL)
 		var->player.pos = next_pos;
 }
 

@@ -10,15 +10,13 @@ int	main(int ac, char **av)
 	t_var	var;
 	t_map	map;
 	
-	if (!av || !*av || parse_map(&map, av[1]))
+	if (!av || !*av || parse(&var, av[1]))
 		return (1); // parse error
-	var.map = &map;
 	if (init_game(&var))
 	{
 		print_error("failed to initialize mlx");
 		return (1); // mlx error
 	}
-	init_map(&(var.map)->map);
 	init_key(&var.key);
 	var.redisplay = 1;
 	var.t_last_frame = get_time();

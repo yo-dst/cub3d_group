@@ -60,6 +60,19 @@ int	mouse_motion_hook(int x, int y, t_var *var)
 {
 	var->redisplay = 1;
 	mlx_mouse_get_pos(var->win, &var->mouse_x, &var->mouse_y);
+	if (var->mouse_x < var->old_mouse_x)
+	{
+		var->player.dir = rotate_vec2(var->player.dir, ROTATE_SPEED);
+		var->player.camera = rotate_vec2(var->player.camera, ROTATE_SPEED);
+	}
+	else if (var->mouse_x > var->old_mouse_x)
+	{
+		var->player.dir = rotate_vec2(var->player.dir, -ROTATE_SPEED);
+		var->player.camera = rotate_vec2(var->player.camera, -ROTATE_SPEED);
+	}
+	else
+		var->redisplay = 0;
+	var->old_mouse_x = var->mouse_x;
 	return (0);
 }
 
@@ -79,7 +92,7 @@ void	set_hooks(t_var *var)
 {
 	mlx_key_hook(var->win, &key_hook, var);
 	mlx_hook(var->win, MotionNotify, 0, &mouse_motion_hook, var);
-	mlx_mouse_hook(var->win, &mouse_hook, var);
+	//mlx_mouse_hook(var->win, &mouse_hook, var);
 	mlx_hook(var->win, DestroyNotify, 0, &exit_game, var);
 	mlx_loop_hook(var->mlx, &loop_hook, var);
 }

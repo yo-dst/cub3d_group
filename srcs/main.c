@@ -28,6 +28,7 @@ int	main(int ac, char **av)
 	var.player.camera = get_vec2(0.66, 0);
 	mlx_mouse_move(var.win, W / 2, H / 2);
 	mlx_mouse_get_pos(var.win, &var.mouse_x, &var.mouse_y);
+	var.old_mouse_x = var.mouse_x;
 	set_hooks(&var);
 	mlx_loop(var.mlx);
 	printf("working on it :)\n");

@@ -90,6 +90,7 @@ typedef struct	s_var
 	int		redisplay;
 	int		mouse_x;
 	int		mouse_y;
+	int		old_mouse_x;
 
 	// var utils to raycast
 }	t_var;

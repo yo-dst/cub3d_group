@@ -29,13 +29,15 @@ int	mouse_hook(int button, int x,int y, t_var *var)
 
 int	key_hook(int keycode, t_var *var)
 {
+	t_vec2	next_pos;
+
 	if (keycode == KEY_ESC)
 		exit_game(var);
 	var->redisplay = 1;
 	if (keycode == KEY_UP)
-		var->player.pos = add_vec2(var->player.pos, mult_vec2(var->player.dir, MOVE_SPEED));
+		next_pos = add_vec2(var->player.pos, mult_vec2(var->player.dir, MOVE_SPEED));
 	else if (keycode == KEY_DOWN)
-		var->player.pos = add_vec2(var->player.pos, mult_vec2(inv_vec2(var->player.dir), MOVE_SPEED));
+		next_pos = add_vec2(var->player.pos, mult_vec2(inv_vec2(var->player.dir), MOVE_SPEED));
 	else if (keycode == KEY_RIGHT)
 	{
 		var->player.dir = rotate_vec2(var->player.dir, -ROTATE_SPEED);
@@ -48,6 +50,9 @@ int	key_hook(int keycode, t_var *var)
 	}
 	else
 		var->redisplay = 0;
+	if ((keycode == KEY_UP || keycode == KEY_DOWN)
+		&& var->map->map[(int)next_pos.y][(int)next_pos.x] != WALL)
+		var->player.pos = next_pos;
 	return (0);
 }
 

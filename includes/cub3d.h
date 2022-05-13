@@ -28,7 +28,6 @@
 # define KEY_LEFT 123
 # define KEY_ESC 53
 
-
 # define AZURE 0xf0ffff
 # define BLACK 0x0
 # define GOLD 0xffd700

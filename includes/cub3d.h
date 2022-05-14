@@ -8,6 +8,9 @@
 # include "X.h"
 # include <sys/time.h>
 
+# define TXTR_W 100
+# define TXTR_H 100
+
 # define MAP_H 20
 # define MAP_W 20
 # define W 800
@@ -49,20 +52,20 @@
 # define INDIAN_RED 0xcd5c5c
 # define PINK 0xffc0cb
 
-typedef struct	s_rgb
+typedef struct s_rgb
 {
 	unsigned int	r;
 	unsigned int	g;
 	unsigned int	b;
 }	t_rgb;
 
-typedef struct	s_vec2
+typedef struct s_vec2
 {
 	double	x;
 	double	y;
 }	t_vec2;
 
-typedef struct	s_key
+typedef struct s_key
 {	
 	int	z;
 	int	s;
@@ -72,7 +75,16 @@ typedef struct	s_key
 	int	right;
 }	t_key;
 
-typedef struct	s_var
+typedef struct s_txtr
+{
+	void	*img;
+	char	*data;
+	int		w;
+	int		h;
+	int		size_line;
+}	t_txtr;
+
+typedef struct s_var
 {
 	void			*mlx;
 	void			*win;
@@ -85,44 +97,48 @@ typedef struct	s_var
 	int				mouse_x;
 	int				mouse_y;
 	int				old_mouse_x;
-	unsigned long	t_last_frame;
+	long			t_last_frame;
 	t_key			key;
 	int				**map;
 	unsigned int	color[6];
 	t_vec2			player;
 	t_vec2			player_dir;
 	t_vec2			camera;
+	t_txtr			txtr[6];
+
+	// utils to raycast algo
 }	t_var;
 
 //	parse_map.c
-int		parse(t_var *var, char *map_file);
+int		parse(t_var *v, char *map_file);
 
 //	set_hooks.c
-void	set_hooks(t_var *var);
+void	set_hooks(t_var *v);
 
 //	init.c
-int		init_game(t_var *var);
+int		init_game(t_var *v);
+int		init_txtr(t_var *v);
 
 //	print_error.c
 void	print_error(char *msg);
 
 //	utils.c
-void			put_pixel(t_var *var, int x, int y, int color);
+void			put_pixel(t_var *v, int x, int y, int color);
 unsigned int	rgb_to_int(t_rgb rgb);
 double			get_dist(t_vec2 v1, t_vec2 v2);
+unsigned int	get_pixel_color(char *img_data, int x, int y, int size_line);
 
 //	draw_game.c
-void	draw_map(t_var *var);
-void	draw_game(t_var *var);
+void	draw_map(t_var *v);
+void	draw_game(t_var *v);
 
 //	draw.c
-void	draw_circle(t_var *var, int x, int y, int radius, int color, int full);
-void	draw_rect(t_var *var, int x, int y, int w, int h, int color);
-void	draw_line(t_var *var, int x1, int y1, int x2, int y2);
+void	draw_circle(t_var *v, int x, int y, int radius, int color, int full);
+void	draw_rect(t_var *v, int x, int y, int w, int h, int color);
+void	draw_line(t_var *v, int x1, int y1, int x2, int y2);
 
 //	init_map.c
 void	init_map(int ***map);
-void	init_key(t_key *key);
 
 //	vec2.c
 void	set_vec2(t_vec2 *v, double x, double y);

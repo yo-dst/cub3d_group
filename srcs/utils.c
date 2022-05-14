@@ -1,25 +1,34 @@
 #include "cub3d.h"
 
-void	put_pixel(t_var *var, int x, int y, int color)
+unsigned int	get_pixel_color(char *img_data, int x, int y, int size_line)
+{
+	int				index_pixel;
+
+	index_pixel = y * size_line + x * 4;
+	return (img_data[index_pixel] | img_data[index_pixel + 1]
+		| img_data[index_pixel + 2] | img_data[index_pixel + 3]);
+}
+
+void	put_pixel(t_var *v, int x, int y, int color)
 {
 	int	index_pixel;
 
 	if (x < 0 || x >= W || y < 0 || y >= H)
 		return ;
-	index_pixel = y * var->size_line + x * 4;
-	if (var->endian == 1)
+	index_pixel = y * v->size_line + x * 4;
+	if (v->endian == 1)
 	{
-		var->img_data[index_pixel] = (color >> 24);
-		var->img_data[index_pixel + 1] = (color >> 16) & 0xFF;
-		var->img_data[index_pixel + 2] = (color >> 8) & 0xFF;
-		var->img_data[index_pixel + 3] = (color) & 0xFF;
+		v->img_data[index_pixel] = (color >> 24);
+		v->img_data[index_pixel + 1] = (color >> 16) & 0xFF;
+		v->img_data[index_pixel + 2] = (color >> 8) & 0xFF;
+		v->img_data[index_pixel + 3] = (color) & 0xFF;
 	}
 	else
 	{
-		var->img_data[index_pixel] = (color) & 0xFF;
-		var->img_data[index_pixel + 1] = (color >> 8) & 0xFF;
-		var->img_data[index_pixel + 2] = (color >> 16) & 0xFF;
-		var->img_data[index_pixel + 3] = (color >> 24);
+		v->img_data[index_pixel] = (color) & 0xFF;
+		v->img_data[index_pixel + 1] = (color >> 8) & 0xFF;
+		v->img_data[index_pixel + 2] = (color >> 16) & 0xFF;
+		v->img_data[index_pixel + 3] = (color >> 24);
 	}
 }
 

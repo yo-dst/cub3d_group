@@ -1,72 +1,72 @@
 #include "cub3d.h"
 
-int	exit_game(t_var *var)
+int	exit_game(t_var *v)
 {
 	int	i;
 
 	i = 0;
 	while (i < MAP_H)
-		free(var->map[i++]);
-	free(var->map);
-	mlx_destroy_image(var->mlx, var->img);
-	mlx_destroy_window(var->mlx, var->win);
+		free(v->map[i++]);
+	free(v->map);
+	mlx_destroy_image(v->mlx, v->img);
+	mlx_destroy_window(v->mlx, v->win);
 	system("leaks cub3d");
 	exit(0);
 	return (0);
 }
 
-int	mouse_motion_hook(int x, int y, t_var *var)
+int	mouse_motion_hook(int x, int y, t_var *v)
 {
-	var->redisplay = 1;
-	mlx_mouse_get_pos(var->win, &var->mouse_x, &var->mouse_y);
-	if (var->key.left != PRESSED
-		&& (var->mouse_x < var->old_mouse_x
-		|| (var->mouse_x < 0 && var->mouse_x == var->old_mouse_x)))
+	v->redisplay = 1;
+	mlx_mouse_get_pos(v->win, &v->mouse_x, &v->mouse_y);
+	if (v->key.left != PRESSED
+		&& (v->mouse_x < v->old_mouse_x
+		|| (v->mouse_x < 0 && v->mouse_x == v->old_mouse_x)))
 	{
-		var->player_dir = rotate_vec2(var->player_dir, ROTATE_SPEED);
-		var->camera = rotate_vec2(var->camera, ROTATE_SPEED);
+		v->player_dir = rotate_vec2(v->player_dir, ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, ROTATE_SPEED);
 	}
-	else if (var->key.right != PRESSED
-		&& (var->mouse_x > var->old_mouse_x
-		|| (var->mouse_x >= W && var->mouse_x == var->old_mouse_x)))
+	else if (v->key.right != PRESSED
+		&& (v->mouse_x > v->old_mouse_x
+		|| (v->mouse_x >= W && v->mouse_x == v->old_mouse_x)))
 	{
-		var->player_dir = rotate_vec2(var->player_dir, -ROTATE_SPEED);
-		var->camera = rotate_vec2(var->camera, -ROTATE_SPEED);
+		v->player_dir = rotate_vec2(v->player_dir, -ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, -ROTATE_SPEED);
 	}
 	else
-		var->redisplay = 0;
-	var->old_mouse_x = var->mouse_x;
+		v->redisplay = 0;
+	v->old_mouse_x = v->mouse_x;
 	return (0);
 }
 
-void	move_player(t_var *var, t_vec2 dir)
+void	move_player(t_var *v, t_vec2 dir)
 {
 	t_vec2	next_pos;
 
-	next_pos = add_vec2(var->player, mult_vec2(dir, MOVE_SPEED));
-	if (var->map[(int)next_pos.y][(int)next_pos.x] != WALL)
-		var->player = next_pos;
+	next_pos = add_vec2(v->player, mult_vec2(dir, MOVE_SPEED));
+	if (v->map[(int)next_pos.y][(int)next_pos.x] != WALL)
+		v->player = next_pos;
 }
 
-void	handle_key(t_var *var)
+void	handle_key(t_var *v)
 {
-	if (var->key.z == PRESSED)
-		move_player(var, var->player_dir);
-	if (var->key.s == PRESSED)
-		move_player(var, inv_vec2(var->player_dir));
-	if (var->key.q == PRESSED)
-		move_player(var, get_vec2(-var->player_dir.y, var->player_dir.x));
-	if (var->key.d == PRESSED)
-		move_player(var, get_vec2(var->player_dir.y, -var->player_dir.x));
-	if (var->key.left == PRESSED)
+	if (v->key.z == PRESSED)
+		move_player(v, v->player_dir);
+	if (v->key.s == PRESSED)
+		move_player(v, inv_vec2(v->player_dir));
+	if (v->key.q == PRESSED)
+		move_player(v, get_vec2(-v->player_dir.y, v->player_dir.x));
+	if (v->key.d == PRESSED)
+		move_player(v, get_vec2(v->player_dir.y, -v->player_dir.x));
+	if (v->key.left == PRESSED)
 	{
-		var->player_dir = rotate_vec2(var->player_dir, ROTATE_SPEED);
-		var->camera = rotate_vec2(var->camera, ROTATE_SPEED);
+		v->player_dir = rotate_vec2(v->player_dir, ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, ROTATE_SPEED);
 	}
-	if (var->key.right == PRESSED)
+	if (v->key.right == PRESSED)
 	{
-		var->player_dir = rotate_vec2(var->player_dir, -ROTATE_SPEED);
-		var->camera = rotate_vec2(var->camera, -ROTATE_SPEED);
+		v->player_dir = rotate_vec2(v->player_dir, -ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, -ROTATE_SPEED);
 	}
 }
 
@@ -78,63 +78,63 @@ int	key_is_pressed(t_key key)
 	return (0);
 }
 
-int	keypress_hook(int keycode, t_var *var)
+int	keypress_hook(int keycode, t_var *v)
 {
 	if (keycode == KEY_Z)
-		var->key.z = PRESSED;
+		v->key.z = PRESSED;
 	else if (keycode == KEY_S)
-		var->key.s = PRESSED;
+		v->key.s = PRESSED;
 	else if (keycode == KEY_Q)
-		var->key.q = PRESSED;
+		v->key.q = PRESSED;
 	else if (keycode == KEY_D)
-		var->key.d = PRESSED;
+		v->key.d = PRESSED;
 	else if (keycode == KEY_LEFT)
-		var->key.left = PRESSED;
+		v->key.left = PRESSED;
 	else if (keycode == KEY_RIGHT)
-		var->key.right = PRESSED;
+		v->key.right = PRESSED;
 	return (0);
 }
 
-int	keyrelease_hook(int keycode, t_var *var)
+int	keyrelease_hook(int keycode, t_var *v)
 {
 	if (keycode == KEY_ESC)
-		exit_game(var);
+		exit_game(v);
 	if (keycode == KEY_Z)
-		var->key.z = RELEASED;
+		v->key.z = RELEASED;
 	else if (keycode == KEY_S)
-		var->key.s = RELEASED;
+		v->key.s = RELEASED;
 	else if (keycode == KEY_Q)
-		var->key.q = RELEASED;
+		v->key.q = RELEASED;
 	else if (keycode == KEY_D)
-		var->key.d = RELEASED;
+		v->key.d = RELEASED;
 	else if (keycode == KEY_LEFT)
-		var->key.left = RELEASED;
+		v->key.left = RELEASED;
 	else if (keycode == KEY_RIGHT)
-		var->key.right = RELEASED;
+		v->key.right = RELEASED;
 	return (0);
 }
 
-int	loop_hook(t_var *var)
+int	loop_hook(t_var *v)
 {
 	long	t;
 
 	t = get_time();
-	if (time_diff(var->t_last_frame, t) > T_PER_FRAME
-		&& (var->redisplay || key_is_pressed(var->key)))
+	if (time_diff(v->t_last_frame, t) > T_PER_FRAME
+		&& (v->redisplay || key_is_pressed(v->key)))
 	{
-		handle_key(var);
-		draw_game(var);
-		var->t_last_frame = t;
-		var->redisplay = 0;
+		handle_key(v);
+		draw_game(v);
+		v->t_last_frame = t;
+		v->redisplay = 0;
 	}
 	return (0);
 }
 
-void	set_hooks(t_var *var)
+void	set_hooks(t_var *v)
 {
-	mlx_hook(var->win, MotionNotify, 0, &mouse_motion_hook, var);
-	mlx_hook(var->win, KeyPress, 0, &keypress_hook, var);
-	mlx_hook(var->win, KeyRelease, 0, &keyrelease_hook, var);
-	mlx_hook(var->win, DestroyNotify, 0, &exit_game, var);
-	mlx_loop_hook(var->mlx, &loop_hook, var);
+	mlx_hook(v->win, MotionNotify, 0, &mouse_motion_hook, v);
+	mlx_hook(v->win, KeyPress, 0, &keypress_hook, v);
+	mlx_hook(v->win, KeyRelease, 0, &keyrelease_hook, v);
+	mlx_hook(v->win, DestroyNotify, 0, &exit_game, v);
+	mlx_loop_hook(v->mlx, &loop_hook, v);
 }

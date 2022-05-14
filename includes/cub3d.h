@@ -75,6 +75,17 @@ typedef struct s_key
 	int	right;
 }	t_key;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*data;
+	int		w;
+	int		h;
+	int		size_line;
+	int		bpp;
+	int		endian;
+}	t_img;
+
 typedef struct s_txtr
 {
 	void	*img;
@@ -88,11 +99,7 @@ typedef struct s_var
 {
 	void			*mlx;
 	void			*win;
-	void			*img;
-	char			*img_data;
-	int				endian;
-	int				bpp;
-	int				size_line;
+	t_img			screen;
 	int				redisplay;
 	int				mouse_x;
 	int				mouse_y;
@@ -104,7 +111,7 @@ typedef struct s_var
 	t_vec2			player;
 	t_vec2			player_dir;
 	t_vec2			camera;
-	t_txtr			txtr[6];
+	t_img			txtr[6];
 
 	// utils to raycast algo
 }	t_var;
@@ -123,10 +130,10 @@ int		init_txtr(t_var *v);
 void	print_error(char *msg);
 
 //	utils.c
-void			put_pixel(t_var *v, int x, int y, int color);
+void			put_pixel(t_img *img, int x, int y, int color);
 unsigned int	rgb_to_int(t_rgb rgb);
 double			get_dist(t_vec2 v1, t_vec2 v2);
-unsigned int	get_pixel_color(char *img_data, int x, int y, int size_line);
+unsigned int	get_pixel_color(t_img txtr, int x, int y);
 
 //	draw_game.c
 void	draw_map(t_var *v);

@@ -10,12 +10,12 @@ void	init_key(t_key *key)
 	key->right = RELEASED;
 }
 
-int	load_txtr(t_var *v, char *filename, t_txtr *txtr)
+int	load_txtr(void *mlx, t_img *txtr, char *filename)
 {
 	char	*err_msg;
 	char	*tmp;
 
-	txtr->img = mlx_xpm_file_to_image(v->mlx, filename, &txtr->w, &txtr->h);
+	txtr->img = mlx_xpm_file_to_image(mlx, filename, &txtr->w, &txtr->h);
 	if (!txtr->img)
 	{
 		err_msg = ft_strjoin("failed to load texture '", filename);
@@ -26,16 +26,16 @@ int	load_txtr(t_var *v, char *filename, t_txtr *txtr)
 		free(err_msg);
 		return (1);
 	}
-	txtr->data = mlx_get_data_addr(txtr->img, &v->bpp, &txtr->size_line, &v->endian);
+	txtr->data = mlx_get_data_addr(txtr->img, &txtr->bpp, &txtr->size_line, &txtr->endian);
 	return (0);
 }
 
 int	init_txtr(t_var *v)
 {
-	if (load_txtr(v, "textures/wood.xpm", &v->txtr[NO])
-		|| load_txtr(v, "textures/greystone.xpm", &v->txtr[SO])
-		|| load_txtr(v, "textures/purplestone.xpm", &v->txtr[EA])
-		|| load_txtr(v, "textures/redbrick.xpm", &v->txtr[WE]))
+	if (load_txtr(v->mlx, &v->txtr[NO], "textures/wood.xpm")
+		|| load_txtr(v->mlx, &v->txtr[SO], "textures/greystone.xpm")
+		|| load_txtr(v->mlx, &v->txtr[EA], "textures/purplestone.xpm")
+		|| load_txtr(v->mlx, &v->txtr[WE], "textures/redbrick.xpm"))
 		return (1);
 	return (0);
 }
@@ -49,13 +49,13 @@ int	init_game(t_var *v)
 		return (1);
 	}
 	v->win = mlx_new_window(v->mlx, W, H, "cub3d");
-	v->img = mlx_new_image(v->mlx, W, H);
-	if (!v->win || !v->img)
+	v->screen.img = mlx_new_image(v->mlx, W, H);
+	if (!v->win || !v->screen.img)
 	{
 		print_error("mlx failure");
 		return (1);
 	}
-	v->img_data = mlx_get_data_addr(v->img, &v->bpp, &v->size_line, &v->endian);
+	v->screen.data = mlx_get_data_addr(v->screen.img, &v->screen.bpp, &v->screen.size_line, &v->screen.endian);
 	init_key(&v->key);
 	if (init_txtr(v))
 		return (1);

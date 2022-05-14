@@ -88,7 +88,7 @@ int	get_wall_height(t_var *v, t_vec2 ray_dir, int *txtr_x, int *side)
 	return ((int)((double)H / wall_dist));
 }
 
-unsigned int	get_txtr_color(t_txtr txtr, int y, int txtr_x, double step_y)
+unsigned int	get_txtr_color(t_img txtr, int y, int txtr_x, double step_y)
 {
 	unsigned int	color;
 	int				txtr_y;
@@ -96,7 +96,8 @@ unsigned int	get_txtr_color(t_txtr txtr, int y, int txtr_x, double step_y)
 	txtr_y = (int)(y * step_y);
 	//printf("step_y: %f\n", step_y);
 	//printf("txtr_x: %d | txtr_y: %d\n", txtr_x, txtr_y);
-	color = get_pixel_color(txtr.data, txtr_x, txtr_y, txtr.size_line);
+	color = get_pixel_color(txtr, txtr_x, txtr_y);
+
 	return (color);
 }
 
@@ -112,15 +113,15 @@ void	draw_ray(t_var *v, int ray_x, t_vec2 ray_dir)
 	top_wall = (H - wall_height) / 2;
 	y = 0;
 	while (y < top_wall)
-		put_pixel(v, ray_x, y++, v->color[CEIL]);
+		put_pixel(&v->screen, ray_x, y++, v->color[CEIL]);
 	while (y < top_wall + wall_height)
 	{
 		//put_pixel(v, ray_x, y, v->color[side]);
-		put_pixel(v, ray_x, y, get_txtr_color(v->txtr[side], y - top_wall, txtr_x, (double)v->txtr[side].h / wall_height));
+		put_pixel(&v->screen, ray_x, y, get_txtr_color(v->txtr[side], y - top_wall, txtr_x, (double)v->txtr[side].h / wall_height));
 		y++;
 	}
 	while (y < H)
-		put_pixel(v, ray_x, y++, v->color[FLOOR]);
+		put_pixel(&v->screen, ray_x, y++, v->color[FLOOR]);
 }
 
 void	draw_rays(t_var *v)
@@ -143,5 +144,5 @@ void	draw_rays(t_var *v)
 void	draw_game(t_var *v)
 {
 	draw_rays(v);
-	mlx_put_image_to_window(v->mlx, v->win, v->img, 0, 0);
+	mlx_put_image_to_window(v->mlx, v->win, v->screen.img, 0, 0);
 }

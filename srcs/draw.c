@@ -14,9 +14,9 @@ void	draw_circle(t_var *v, int x, int y, int radius, int color, int full)
 		{
 			dist = (x - i) * (x - i) + (y - j) * (y - j);
 			if (full && (dist <= radius * radius + 4))
-				put_pixel(v, i, j, color);
+				put_pixel(&v->screen, i, j, color);
 			if (!full && dist >= radius * radius - 4 && dist <= radius * radius + 4)
-				put_pixel(v, i, j, color);
+				put_pixel(&v->screen, i, j, color);
 			j++;
 		}
 		i++;
@@ -35,7 +35,7 @@ void	draw_rect(t_var *v, int x, int y, int w, int h, int color)
 		while (j < H)
 		{
 			if (i >= x && i < x + w && j >= y && j < y + h)
-				put_pixel(v, i, j, color);
+				put_pixel(&v->screen, i, j, color);
 			j++;
 		}
 		i++;
@@ -73,6 +73,6 @@ void	draw_line(t_var *v, int x1, int y1, int x2, int y2)
 			side_dist.y += unit_dist.y;
 		}
 		curr_pixel = add_vec2(get_vec2(x1, y1), mult_vec2(dir, curr_dist));
-		put_pixel(v, curr_pixel.x, curr_pixel.y, BLACK);
+		put_pixel(&v->screen, curr_pixel.x, curr_pixel.y, BLACK);
 	}
 }

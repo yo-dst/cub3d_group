@@ -94,10 +94,7 @@ unsigned int	get_txtr_color(t_img txtr, int y, int txtr_x, double step_y)
 	int				txtr_y;
 
 	txtr_y = (int)(y * step_y);
-	//printf("step_y: %f\n", step_y);
-	//printf("txtr_x: %d | txtr_y: %d\n", txtr_x, txtr_y);
-	color = get_pixel_color(txtr, txtr_x, txtr_y);
-
+	return (get_pixel_color(txtr, txtr_x, txtr_y));
 	return (color);
 }
 
@@ -117,7 +114,8 @@ void	draw_ray(t_var *v, int ray_x, t_vec2 ray_dir)
 	while (y < top_wall + wall_height)
 	{
 		//put_pixel(v, ray_x, y, v->color[side]);
-		put_pixel(&v->screen, ray_x, y, get_txtr_color(v->txtr[side], y - top_wall, txtr_x, (double)v->txtr[side].h / wall_height));
+		put_pixel(&v->screen, ray_x, y, 
+			get_txtr_color(v->txtr[side], y - top_wall, txtr_x, (double)v->txtr[side].h / wall_height));
 		y++;
 	}
 	while (y < H)

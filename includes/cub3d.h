@@ -111,9 +111,7 @@ typedef struct s_var
 	t_vec2			player;
 	t_vec2			player_dir;
 	t_vec2			camera;
-	t_img			txtr[6];
-
-	// utils to raycast algo
+	t_img			txtr[4];
 }	t_var;
 
 //	parse_map.c
@@ -130,18 +128,18 @@ int		init_txtr(t_var *v);
 void	print_error(char *msg);
 
 //	utils.c
-void			put_pixel(t_img *img, int x, int y, int color);
+void			put_pixel(t_img *img, int x, int y, unsigned int color);
 unsigned int	rgb_to_int(t_rgb rgb);
 double			get_dist(t_vec2 v1, t_vec2 v2);
-unsigned int	get_pixel_color(t_img txtr, int x, int y);
+unsigned int	get_pixel_color(t_img img, int x, int y);
 
 //	draw_game.c
 void	draw_map(t_var *v);
 void	draw_game(t_var *v);
 
 //	draw.c
-void	draw_circle(t_var *v, int x, int y, int radius, int color, int full);
-void	draw_rect(t_var *v, int x, int y, int w, int h, int color);
+void	draw_circle(t_var *v, int x, int y, int radius, unsigned int color, int full);
+void	draw_rect(t_var *v, int x, int y, int w, int h, unsigned int color);
 void	draw_line(t_var *v, int x1, int y1, int x2, int y2);
 
 //	init_map.c

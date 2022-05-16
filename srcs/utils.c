@@ -5,11 +5,10 @@ unsigned int	get_pixel_color(t_img img, int x, int y)
 	int				index_pixel;
 
 	index_pixel = y * img.size_line + x * 4;
-	return (img.data[index_pixel] | img.data[index_pixel + 1]
-		| img.data[index_pixel + 2] | img.data[index_pixel + 3]);
+	return (*(int *)(img.data + index_pixel));
 }
 
-void	put_pixel(t_img *img, int x, int y, int color)
+void	put_pixel(t_img *img, int x, int y, unsigned int color)
 {
 	int	index_pixel;
 

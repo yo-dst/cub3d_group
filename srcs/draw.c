@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	draw_circle(t_var *v, int x, int y, int radius, int color, int full)
+void	draw_circle(t_var *v, int x, int y, int radius, unsigned int color, int full)
 {
 	int	i;
 	int	j;
@@ -23,7 +23,7 @@ void	draw_circle(t_var *v, int x, int y, int radius, int color, int full)
 	}
 }
 
-void	draw_rect(t_var *v, int x, int y, int w, int h, int color)
+void	draw_rect(t_var *v, int x, int y, int w, int h, unsigned int color)
 {
 	int	i;
 	int	j;

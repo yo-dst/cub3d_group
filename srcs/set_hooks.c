@@ -10,7 +10,7 @@ int	exit_game(t_var *v)
 	free(v->map);
 	mlx_destroy_image(v->mlx, v->screen.img);
 	mlx_destroy_window(v->mlx, v->win);
-	system("leaks cub3d");
+	//system("leaks cub3d");
 	exit(0);
 	return (0);
 }

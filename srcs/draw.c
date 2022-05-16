@@ -44,7 +44,7 @@ void	draw_rect(t_img *img, int x, int y, int w, int h, unsigned int color)
 
 void	draw_line(t_img *img, int x1, int y1, int x2, int y2)
 {
-	t_vec2	dir; // direction of 
+	t_vec2	dir;
 	t_vec2	curr_pixel;
 	t_vec2	step;
 	double	curr_dist;

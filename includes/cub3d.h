@@ -86,17 +86,9 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_txtr
-{
-	void	*img;
-	char	*data;
-	int		w;
-	int		h;
-	int		size_line;
-}	t_txtr;
-
 typedef struct s_var
 {
+	char			*test;
 	void			*mlx;
 	void			*win;
 	t_img			screen;
@@ -114,7 +106,6 @@ typedef struct s_var
 	t_vec2			player_dir;
 	t_vec2			camera;
 	t_img			txtr[4];
-	int				mouse_moved;
 }	t_var;
 
 //	parse_map.c

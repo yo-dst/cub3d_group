@@ -31,9 +31,13 @@ int	exit_game(t_var *v)
 	while (i < MAP_H)
 		free(v->map[i++]);
 	free(v->map);
+	mlx_destroy_image(v->mlx, v->txtr[NO].img);
+	mlx_destroy_image(v->mlx, v->txtr[SO].img);
+	mlx_destroy_image(v->mlx, v->txtr[EA].img);
+	mlx_destroy_image(v->mlx, v->txtr[WE].img);
 	mlx_destroy_image(v->mlx, v->screen.img);
 	mlx_destroy_window(v->mlx, v->win);
-	//system("leaks cub3d");
+	system("leaks cub3d");
 	exit(0);
 	return (0);
 }
@@ -127,7 +131,6 @@ int	loop_hook(t_var *v)
 		draw_game(v);
 		v->t_last_frame = t;
 		v->redisplay = 0;
-		v->mouse_moved = 0;
 	}
 	return (0);
 }

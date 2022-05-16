@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	draw_circle(t_var *v, int x, int y, int radius, unsigned int color, int full)
+void	draw_circle(t_img *img, int x, int y, int radius, unsigned int color, int full)
 {
 	int	i;
 	int	j;
@@ -14,16 +14,16 @@ void	draw_circle(t_var *v, int x, int y, int radius, unsigned int color, int ful
 		{
 			dist = (x - i) * (x - i) + (y - j) * (y - j);
 			if (full && (dist <= radius * radius + 4))
-				put_pixel(&v->screen, i, j, color);
+				put_pixel(img, i, j, color);
 			if (!full && dist >= radius * radius - 4 && dist <= radius * radius + 4)
-				put_pixel(&v->screen, i, j, color);
+				put_pixel(img, i, j, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_rect(t_var *v, int x, int y, int w, int h, unsigned int color)
+void	draw_rect(t_img *img, int x, int y, int w, int h, unsigned int color)
 {
 	int	i;
 	int	j;
@@ -35,14 +35,14 @@ void	draw_rect(t_var *v, int x, int y, int w, int h, unsigned int color)
 		while (j < H)
 		{
 			if (i >= x && i < x + w && j >= y && j < y + h)
-				put_pixel(&v->screen, i, j, color);
+				put_pixel(img, i, j, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_line(t_var *v, int x1, int y1, int x2, int y2)
+void	draw_line(t_img *img, int x1, int y1, int x2, int y2)
 {
 	t_vec2	dir;
 	t_vec2	curr_pixel;
@@ -73,6 +73,6 @@ void	draw_line(t_var *v, int x1, int y1, int x2, int y2)
 			side_dist.y += unit_dist.y;
 		}
 		curr_pixel = add_vec2(get_vec2(x1, y1), mult_vec2(dir, curr_dist));
-		put_pixel(&v->screen, curr_pixel.x, curr_pixel.y, BLACK);
+		put_pixel(img, curr_pixel.x, curr_pixel.y, BLACK);
 	}
 }

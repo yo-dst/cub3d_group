@@ -18,23 +18,22 @@ int	exit_game(t_var *v)
 int	mouse_motion_hook(int x, int y, t_var *v)
 {
 	v->redisplay = 1;
-	mlx_mouse_get_pos(v->win, &v->mouse_x, &v->mouse_y);
 	if (v->key.left != PRESSED
-		&& (v->mouse_x < v->old_mouse_x
-		|| (v->mouse_x < 0 && v->mouse_x == v->old_mouse_x)))
+		&& (x < v->old_mouse_x || (x < 0 && x == v->old_mouse_x)))
 	{
 		v->player_dir = rotate_vec2(v->player_dir, MOUSE_ROTATE_SPEED);
 		v->camera = rotate_vec2(v->camera, MOUSE_ROTATE_SPEED);
 	}
 	else if (v->key.right != PRESSED
-		&& (v->mouse_x > v->old_mouse_x
-		|| (v->mouse_x >= W && v->mouse_x == v->old_mouse_x)))
+		&& (x > v->old_mouse_x || (x >= W && x == v->old_mouse_x)))
 	{
 		v->player_dir = rotate_vec2(v->player_dir, -MOUSE_ROTATE_SPEED);
 		v->camera = rotate_vec2(v->camera, -MOUSE_ROTATE_SPEED);
 	}
 	else
 		v->redisplay = 0;
+	v->mouse_x = x;
+	v->mouse_y = y;
 	v->old_mouse_x = v->mouse_x;
 	return (0);
 }

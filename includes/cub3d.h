@@ -29,7 +29,7 @@
 
 # define MOVE_SPEED 0.05
 # define ROTATE_SPEED 0.03
-# define MOUSE_ROTATE_SPEED 0.01
+# define MOUSE_ROTATE_SPEED 0.02
 
 # define KEY_RIGHT 124
 # define KEY_LEFT 123
@@ -139,9 +139,9 @@ void	draw_map(t_var *v);
 void	draw_game(t_var *v);
 
 //	draw.c
-void	draw_circle(t_var *v, int x, int y, int radius, unsigned int color, int full);
-void	draw_rect(t_var *v, int x, int y, int w, int h, unsigned int color);
-void	draw_line(t_var *v, int x1, int y1, int x2, int y2);
+void	draw_circle(t_img *img, int x, int y, int radius, unsigned int color, int full);
+void	draw_rect(t_img *img, int x, int y, int w, int h, unsigned int color);
+void	draw_line(t_img *img, int x1, int y1, int x2, int y2);
 
 //	init_map.c
 void	init_map(int ***map);

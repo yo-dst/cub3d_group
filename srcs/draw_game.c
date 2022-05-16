@@ -102,19 +102,20 @@ void	draw_ray(t_var *v, int ray_x, t_vec2 ray_dir)
 	int		wall_height;
 	int		side;
 	int		txtr_x;
-	int		top_wall;
+	int		wall_start_y;
 	int		y;
 
 	wall_height = get_wall_height(v, ray_dir, &txtr_x, &side);
-	top_wall = (H - wall_height) / 2;
+	wall_start_y = (H - wall_height) / 2;
 	y = 0;
-	while (y < top_wall)
+	while (y < wall_start_y)
 		put_pixel(&v->screen, ray_x, y++, v->color[CEIL]);
-	while (y < top_wall + wall_height)
+	while (y < wall_start_y + wall_height)
 	{
 		//put_pixel(v, ray_x, y, v->color[side]);
-		put_pixel(&v->screen, ray_x, y, 
-			get_txtr_color(v->txtr[side], y - top_wall, txtr_x, (double)v->txtr[side].h / wall_height));
+		put_pixel(&v->screen, ray_x, y,
+			get_pixel_color(v->txtr[side], txtr_x, (y - wall_start_y) * ((double)v->txtr[side].h / wall_height)));
+			//get_txtr_color(v->txtr[side], y - top_wall, txtr_x, (double)v->txtr[side].h / wall_height));
 		y++;
 	}
 	while (y < H)

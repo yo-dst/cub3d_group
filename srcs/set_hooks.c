@@ -1,5 +1,28 @@
 #include "cub3d.h"
 
+void	move_player(t_var *v, t_vec2 dir)
+{
+	t_vec2	next_pos;
+
+	next_pos = add_vec2(v->player, mult_vec2(dir, MOVE_SPEED));
+	if (v->map[(int)next_pos.y][(int)next_pos.x] != WALL)
+		v->player = next_pos;
+}
+
+void	rotate_player(t_var *v, int direction)
+{
+	if (direction == CLOCKWISE)
+	{
+		v->player_dir = rotate_vec2(v->player_dir, -MOUSE_ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, -MOUSE_ROTATE_SPEED);
+	}
+	else if (direction == ANTICLOCKWISE)
+	{
+		v->player_dir = rotate_vec2(v->player_dir, MOUSE_ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, MOUSE_ROTATE_SPEED);
+	}
+}
+
 int	exit_game(t_var *v)
 {
 	int	i;
@@ -19,32 +42,17 @@ int	mouse_motion_hook(int x, int y, t_var *v)
 {
 	v->redisplay = 1;
 	if (v->key.left != PRESSED
-		&& (x < v->old_mouse_x || (x < 0 && x == v->old_mouse_x)))
-	{
-		v->player_dir = rotate_vec2(v->player_dir, MOUSE_ROTATE_SPEED);
-		v->camera = rotate_vec2(v->camera, MOUSE_ROTATE_SPEED);
-	}
+		&& (x < v->old_mouse_x || x == v->mouse_x_min))
+		rotate_player(v, ANTICLOCKWISE);
 	else if (v->key.right != PRESSED
-		&& (x > v->old_mouse_x || (x >= W && x == v->old_mouse_x)))
-	{
-		v->player_dir = rotate_vec2(v->player_dir, -MOUSE_ROTATE_SPEED);
-		v->camera = rotate_vec2(v->camera, -MOUSE_ROTATE_SPEED);
-	}
+		&& (x > v->old_mouse_x || x == v->mouse_x_max))
+		rotate_player(v, CLOCKWISE);
 	else
 		v->redisplay = 0;
 	v->mouse_x = x;
 	v->mouse_y = y;
 	v->old_mouse_x = v->mouse_x;
 	return (0);
-}
-
-void	move_player(t_var *v, t_vec2 dir)
-{
-	t_vec2	next_pos;
-
-	next_pos = add_vec2(v->player, mult_vec2(dir, MOVE_SPEED));
-	if (v->map[(int)next_pos.y][(int)next_pos.x] != WALL)
-		v->player = next_pos;
 }
 
 void	handle_key(t_var *v)
@@ -58,15 +66,9 @@ void	handle_key(t_var *v)
 	if (v->key.d == PRESSED)
 		move_player(v, get_vec2(v->player_dir.y, -v->player_dir.x));
 	if (v->key.left == PRESSED)
-	{
-		v->player_dir = rotate_vec2(v->player_dir, ROTATE_SPEED);
-		v->camera = rotate_vec2(v->camera, ROTATE_SPEED);
-	}
+		rotate_player(v, ANTICLOCKWISE);
 	if (v->key.right == PRESSED)
-	{
-		v->player_dir = rotate_vec2(v->player_dir, -ROTATE_SPEED);
-		v->camera = rotate_vec2(v->camera, -ROTATE_SPEED);
-	}
+		rotate_player(v, CLOCKWISE);
 }
 
 int	key_is_pressed(t_key key)
@@ -125,6 +127,7 @@ int	loop_hook(t_var *v)
 		draw_game(v);
 		v->t_last_frame = t;
 		v->redisplay = 0;
+		v->mouse_moved = 0;
 	}
 	return (0);
 }

@@ -15,18 +15,21 @@
 
 # define T_PER_FRAME (1000.0 / 60)
 
+# define MOVE_SPEED 0.05
+# define ROTATE_SPEED 0.03
+# define MOUSE_ROTATE_SPEED 0.02
+
 # define HORIZONTAL 0
 # define VERTICAL 1
+
+# define CLOCKWISE 0
+# define ANTICLOCKWISE 1
 
 # define PRESSED 0
 # define RELEASED 1
 
 # define EMPTY 0
 # define WALL 1
-
-# define MOVE_SPEED 0.05
-# define ROTATE_SPEED 0.03
-# define MOUSE_ROTATE_SPEED 0.02
 
 # define KEY_RIGHT 124
 # define KEY_LEFT 123
@@ -101,6 +104,8 @@ typedef struct s_var
 	int				redisplay;
 	int				mouse_x;
 	int				mouse_y;
+	int				mouse_x_max;
+	int				mouse_x_min;
 	int				old_mouse_x;
 	long			t_last_frame;
 	t_key			key;
@@ -110,6 +115,7 @@ typedef struct s_var
 	t_vec2			player_dir;
 	t_vec2			camera;
 	t_img			txtr[4];
+	int				mouse_moved;
 }	t_var;
 
 //	parse_map.c

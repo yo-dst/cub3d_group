@@ -1,5 +1,18 @@
 #include "cub3d.h"
 
+void	get_mouse_x_limits(t_var *v)
+{
+	int	x;
+	int	y;
+
+	mlx_mouse_move(v->win, -10000, 0);
+	mlx_mouse_get_pos(v->win, &x, &y);
+	v->mouse_x_min = x;
+	mlx_mouse_move(v->win, 10000, 0);
+	mlx_mouse_get_pos(v->win, &x, &y);
+	v->mouse_x_max = x;
+}
+
 void	init_key(t_key *key)
 {
 	key->z = RELEASED;
@@ -59,6 +72,8 @@ int	init_game(t_var *v)
 	init_key(&v->key);
 	if (init_txtr(v))
 		return (1);
+	get_mouse_x_limits(v);
+	mlx_mouse_move(v->win, W / 2, H / 2);
 	mlx_mouse_get_pos(v->win, &v->mouse_x, &v->mouse_y);
 	v->old_mouse_x = v->mouse_x;
 	v->redisplay = 1;

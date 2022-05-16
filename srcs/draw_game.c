@@ -85,17 +85,16 @@ int	get_wall_height(t_var *v, t_vec2 ray_dir, int *txtr_x, int *side)
 		*txtr_x = (int)((wall_hit.x - (int)wall_hit.x) * v->txtr[*side].w);
 	else
 		*txtr_x = (int)((wall_hit.y - (int)wall_hit.y) * v->txtr[*side].w);
-	return ((int)((double)H / wall_dist));
+	return ((double)H / wall_dist);
 }
 
-unsigned int	get_txtr_color(t_img txtr, int y, int txtr_x, double step_y)
+unsigned int	get_txtr_color(t_img txtr, int y, int txtr_x, double txtr_step_y)
 {
 	unsigned int	color;
 	int				txtr_y;
 
-	txtr_y = (int)(y * step_y);
+	txtr_y = (int)(y * txtr_step_y);
 	return (get_pixel_color(txtr, txtr_x, txtr_y));
-	return (color);
 }
 
 void	draw_ray(t_var *v, int ray_x, t_vec2 ray_dir)

@@ -17,7 +17,6 @@
 
 # define MOVE_SPEED 0.05
 # define ROTATE_SPEED 0.03
-# define MOUSE_ROTATE_SPEED 0.03
 
 # define HORIZONTAL 0
 # define VERTICAL 1

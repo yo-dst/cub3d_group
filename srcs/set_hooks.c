@@ -13,13 +13,13 @@ void	rotate_player(t_var *v, int direction)
 {
 	if (direction == CLOCKWISE)
 	{
-		v->player_dir = rotate_vec2(v->player_dir, -MOUSE_ROTATE_SPEED);
-		v->camera = rotate_vec2(v->camera, -MOUSE_ROTATE_SPEED);
+		v->player_dir = rotate_vec2(v->player_dir, -ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, -ROTATE_SPEED);
 	}
 	else if (direction == ANTICLOCKWISE)
 	{
-		v->player_dir = rotate_vec2(v->player_dir, MOUSE_ROTATE_SPEED);
-		v->camera = rotate_vec2(v->camera, MOUSE_ROTATE_SPEED);
+		v->player_dir = rotate_vec2(v->player_dir, ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, ROTATE_SPEED);
 	}
 }
 

@@ -8,9 +8,6 @@
 # include "X.h"
 # include <sys/time.h>
 
-# define TXTR_W 100
-# define TXTR_H 100
-
 # define MAP_H 20
 # define MAP_W 20
 # define W 800

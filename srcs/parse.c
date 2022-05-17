@@ -1,21 +1,25 @@
 #include "cub3d.h"
 
+/*
+void	test(t_var *v)
+{
+	printf("Ea = %s\n", v->txtr[EA].path);
+	printf("No = %s\n", v->txtr[NO].path);
+	printf("We = %s\n", v->txtr[WE].path);
+	printf("So = %s\n", v->txtr[SO].path);
+	ft_puttabs(v->map, v->map_w, v->map_h);
+}
+*/
+
 int	parse(t_var *v, char *map_file)
 {
-	if (!map_file)
-	{
-		print_error("missing parameter");
+	if (parse_file(v, map_file))
 		return (1);
-	}
-	init_map(&v->map);
+	//test(v);
+	//exit(0);
 	v->color[NO] = INDIAN_RED;
 	v->color[SO] = GREEN_YELLOW;
 	v->color[EA] = GOLD;
 	v->color[WE] = PINK;
-	v->color[CEIL] = AZURE;
-	v->color[FLOOR] = BLACK;
-	v->player = get_vec2(MAP_W / 2, MAP_H / 2);
-	v->player_dir = get_vec2(0, 1);
-	v->camera = get_vec2(0.66, 0);
 	return (0);
 }

@@ -132,7 +132,7 @@ void	draw_rays(t_var *v)
 	while (ray_x < W)
 	{
 		camera_x = 2 * (double)ray_x / W - 1;
-		ray_dir = add_vec2(v->player_dir, mult_vec2(v->camera, camera_x));
+		ray_dir = add_vec2(v->player_dir, mult_vec2(, camera_x));
 		ray_dir = norm_vec2(ray_dir);
 		draw_ray(v, ray_x, ray_dir);
 		ray_x++;

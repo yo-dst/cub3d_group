@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+         #
+#    By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 04:39:29 by jbettini          #+#    #+#              #
-#    Updated: 2022/04/07 01:20:14 by jbettini         ###   ########.fr        #
+#    Updated: 2022/05/17 14:19:09 by ydanset          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,15 +30,19 @@ HEADERS	=	-I$(I_DIR) -Ilibft/includes -Iminilibx
 
 SRC	= 	main.c \
 		init.c	\
-		parse.c	\
 		set_hooks.c	\
 		print_error.c	\
 		utils.c	\
 		draw_game.c	\
 		draw.c	\
-		init_map.c	\
 		vec2.c	\
-		time.c
+		time.c	\
+		parse.c	\
+		parse_file.c	\
+		parse_utils.c	\
+		parse_textures.c	\
+		parse_map.c		\
+		dev.c	\
 
 OBJ	=	$(SRC:%.c=%.o)
 
@@ -59,7 +63,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@printf $(NC)
 
 run: all
-	./$(NAME) maps/map_0.ber
+	./$(NAME) maps/map_0.cub
 
 clean:
 	@make clean -C libft

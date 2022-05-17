@@ -7,6 +7,7 @@
 # include <math.h>
 # include "X.h"
 # include <sys/time.h>
+# include <fcntl.h>
 
 # define MAP_H 20
 # define MAP_W 20
@@ -84,11 +85,17 @@ typedef struct s_img
 	int		size_line;
 	int		bpp;
 	int		endian;
+	char	*path;
 }	t_img;
+
+typedef struct	s_parse
+{
+	char	**map;
+	char	**textures;
+}	t_parse;
 
 typedef struct s_var
 {
-	char			*test;
 	void			*mlx;
 	void			*win;
 	t_img			screen;
@@ -101,15 +108,31 @@ typedef struct s_var
 	long			t_last_frame;
 	t_key			key;
 	int				**map;
+	int				map_w;
+	int				map_h;
 	unsigned int	color[6];
 	t_vec2			player;
 	t_vec2			player_dir;
-	t_vec2			camera;
+	t_vec2			camera; // screen_plane
 	t_img			txtr[4];
 }	t_var;
 
 //	parse_map.c
 int		parse(t_var *v, char *map_file);
+int		parse_file(t_var *v, char *map_file);
+int		parse_map_and_init(t_var *v, char **map);
+int		**init_map(char **chars_map);
+
+// parse_utils.char
+int		is_empty_line(char *line);
+int		free_tmp_error(t_parse **tmp);
+void	init_struct(t_var *v);
+int		is_map_char(char c);
+int		is_map(char *line);
+char	*ft_str_del_nl(char *str);
+
+// parse_textures.c
+int	parse_textures(t_var *v, char **textures);
 
 //	set_hooks.c
 void	set_hooks(t_var *v);
@@ -120,6 +143,7 @@ int		init_txtr(t_var *v);
 
 //	print_error.c
 void	print_error(char *msg);
+int		print_and_return_error(char *msg);
 
 //	utils.c
 void			put_pixel(t_img *img, int x, int y, unsigned int color);
@@ -136,9 +160,6 @@ void	draw_circle(t_img *img, int x, int y, int radius, unsigned int color, int f
 void	draw_rect(t_img *img, int x, int y, int w, int h, unsigned int color);
 void	draw_line(t_img *img, int x1, int y1, int x2, int y2);
 
-//	init_map.c
-void	init_map(int ***map);
-
 //	vec2.c
 void	set_vec2(t_vec2 *v, double x, double y);
 t_vec2	get_vec2(double x, double y);
@@ -152,5 +173,8 @@ t_vec2	rotate_vec2(t_vec2 v, double angle);
 //	time.c
 long	get_time(void);
 long	time_diff(long start, long end);
+
+//	dev.c
+void	ft_puttabs(int **tabs, int x, int y);
 
 #endif

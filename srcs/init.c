@@ -1,5 +1,18 @@
 #include "cub3d.h"
 
+int	init_minimap(t_var *v)
+{
+	v->minimap.h = H ;
+	v->minimap.w = W ;
+	v->minimap.img = mlx_new_image(v->mlx, v->minimap.w, v->minimap.h);
+	if (!v->minimap.img)
+		return (1);
+	v->minimap.data = mlx_get_data_addr(v->minimap.img, &v->minimap.bpp, \
+		&v->minimap.size_line, &v->minimap.endian);
+	v->minimap.path = NULL;
+	return (0);
+}
+
 void	get_mouse_x_limits(t_var *v)
 {
 	int	x;
@@ -78,9 +91,9 @@ int	init_game(t_var *v)
 	v->old_mouse_x = v->mouse_x;
 	v->redisplay = 1;
 	v->t_last_frame = get_time();
+	if (init_minimap(v))
+		return (1);
 	return (0);
 }
-
-
 
 

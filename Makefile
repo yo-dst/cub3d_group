@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+         #
+#    By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 04:39:29 by jbettini          #+#    #+#              #
-#    Updated: 2022/05/17 14:19:09 by ydanset          ###   ########.fr        #
+#    Updated: 2022/05/17 20:10:29 by jbettini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC	= 	main.c \
 		parse_textures.c	\
 		parse_map.c		\
 		dev.c	\
+		minimap.c \
 
 OBJ	=	$(SRC:%.c=%.o)
 
@@ -64,6 +65,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 run: all
 	./$(NAME) maps/map_0.cub
+	minimap.c \
 
 clean:
 	@make clean -C libft

@@ -160,7 +160,7 @@ int *dup_str_to_tab(char *str, int len)
     while (str[++i] && i < len)
     {
         if (is_player(str[i]))
-            tab[i] = -1;
+            tab[i] = str[i];
         else
             tab[i] = str[i] - 48;
     }
@@ -183,6 +183,45 @@ int **init_map(char **chars_map)
     return (new_map);
 }
 
+void    init_player(t_var *v)
+{
+    int i;
+    int j;
+
+    i = -1;
+    while (++i <= v->map_h)
+    {
+        j = -1;
+        while (++j <= v->map_w)
+        {
+            if (v->map[i][j] == 'N')
+            {
+                v->player = get_vec2(j + 0.5, i + 0.5);
+                v->player_dir = get_vec2(0, 1);
+                v->camera = get_vec2(0.66, 0);
+            }
+            else if (v->map[i][j] == 'S')
+            {
+                v->player = get_vec2(j + 0.5, i + 0.5);
+                v->player_dir = get_vec2(0, -1);
+                v->camera = get_vec2(-0.66, 0);
+            }
+            else if (v->map[i][j] == 'W')
+            {
+                v->player = get_vec2(j + 0.5, i + 0.5);
+                v->player_dir = get_vec2(-1, 0);
+                v->camera = get_vec2(0, 0.66); 
+            }
+            else if (v->map[i][j] == 'E')
+            {
+                v->player = get_vec2(j + 0.5, i + 0.5);
+                v->player_dir = get_vec2(1, 0);
+                v->camera = get_vec2(0, -0.66);
+            }        
+        }
+    }
+}
+
 int parse_map_and_init(t_var *v, char **map_before_parse)
 {
     char **map;
@@ -199,5 +238,6 @@ int parse_map_and_init(t_var *v, char **map_before_parse)
     v->map_h = ft_strslen(map); 
     v->map_w = get_max_len(map);
     v->map = init_map(map);
+    init_player(v);
     return (0);
 }

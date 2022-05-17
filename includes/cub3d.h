@@ -115,6 +115,7 @@ typedef struct s_var
 	t_vec2			player_dir;
 	t_vec2			camera; // screen_plane
 	t_img			txtr[4];
+	t_img			minimap;
 }	t_var;
 
 //	parse_map.c
@@ -176,5 +177,8 @@ long	time_diff(long start, long end);
 
 //	dev.c
 void	ft_puttabs(int **tabs, int x, int y);
+
+//	minimap.c
+void	draw_minimap(t_var *v);
 
 #endif

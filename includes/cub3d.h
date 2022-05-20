@@ -177,6 +177,8 @@ long	time_diff(long start, long end);
 
 //	dev.c
 void	ft_puttabs(int **tabs, int x, int y);
+void	test(t_var *v);
+
 
 //	minimap.c
 void	draw_minimap(t_var *v);

@@ -39,7 +39,8 @@ static	char	**file_to_strs(char	*path_file)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		ft_lstadd_back(&tmp, ft_lstnew(ft_strdup(line)));
+		if (ft_strncmp(line, "", ft_strlen(line)))
+			ft_lstadd_back(&tmp, ft_lstnew(ft_strdup(line)));
 		free(line);
 	}
 	file = ft_lst_to_dpt(tmp);
@@ -68,32 +69,32 @@ char	**get_map(char **file)
 	return (map);
 }
 
-char	**delete_empty_line(char **strs)
-{
-	char	**new;
-	int		empty_line;
-	int		i;
-	int		j;
+// char	**delete_empty_line(char **strs)
+// {
+// 	char	**new;
+// 	int		empty_line;
+// 	int		i;
+// 	int		j;
 
-	j = 0;
-	i = -1;
-	empty_line = 0;
-	while (strs[++i])
-	{
-		if (is_empty_line(strs[i]))
-			empty_line++;
-	}
-	new = malloc(sizeof(char *) * (ft_strslen(strs) - empty_line + 1));
-	i = -1;
-	while (strs[++i])
-	{
-		if (!is_empty_line(strs[i]))
-			new[j++] = ft_strdup(strs[i]);
-	}
-	new[j] = 0;
-	ft_free_strs(strs);
-	return (new);
-}
+// 	j = 0;
+// 	i = -1;
+// 	empty_line = 0;
+// 	while (strs[++i])
+// 	{
+// 		if (is_empty_line(strs[i]))
+// 			empty_line++;
+// 	}
+// 	new = malloc(sizeof(char *) * (ft_strslen(strs) - empty_line + 1));
+// 	i = -1;
+// 	while (strs[++i])
+// 	{
+// 		if (!is_empty_line(strs[i]))
+// 			new[j++] = ft_strdup(strs[i]);
+// 	}
+// 	new[j] = 0;
+// 	ft_free_strs(strs);
+// 	return (new);
+// }
 
 char	**get_textures(char **file)
 {
@@ -108,7 +109,7 @@ char	**get_textures(char **file)
 	while(file[++i] && !is_map(file[i]))
 		textures[i] = ft_strdup(file[i]);
 	textures[i] = 0;
-	return (delete_empty_line(textures));
+	return (textures);
 }
 
 int	parse_file(t_var *v, char *map_file)

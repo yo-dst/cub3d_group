@@ -189,10 +189,10 @@ void    init_player(t_var *v)
     int j;
 
     i = -1;
-    while (++i <= v->map_h)
+    while (++i < v->map_h)
     {
         j = -1;
-        while (++j <= v->map_w)
+        while (++j < v->map_w)
         {
             if (v->map[i][j] == 'N')
             {
@@ -231,8 +231,7 @@ int parse_map_and_init(t_var *v, char **map_before_parse)
         return (print_and_return_error("Invalid Map"));
     else if (check_incorect_map(map_before_parse))
         return (1);
-    map = delete_empty_eof(map_before_parse);
-    map = replace_ws(map);
+    map = replace_ws(map_before_parse);
     if (check_border(map))
         return (1);
     v->map_h = ft_strslen(map); 

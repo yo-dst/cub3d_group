@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:52:56 by ydanset           #+#    #+#             */
-/*   Updated: 2022/05/17 14:02:55 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/05/20 16:32:57 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+void			ft_putendl_strs(char **strs);
 size_t			ft_strslen(char **s);
 int				ft_is_whitespace(int c);
 void			ft_putstrs(char **strs);

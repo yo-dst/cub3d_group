@@ -65,7 +65,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 run: all
 	./$(NAME) maps/map_0.cub
-	minimap.c \
 
 clean:
 	@make clean -C libft

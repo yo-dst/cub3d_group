@@ -115,13 +115,10 @@ void	draw_ray(t_var *v, int ray_x, t_vec2 ray_dir)
 		//put_pixel(v, ray_x, y, v->color[side]);
 		put_pixel(&v->screen, ray_x, y,
 			get_pixel_color(v->txtr[side], txtr_x, (y - wall_start_y) * ((double)v->txtr[side].h / wall_height)));
-			//get_txtr_color(v->txtr[side], y - top_wall, txtr_x, (double)v->txtr[side].h / wall_height));
 		y++;
 	}
-	printf("here\n");
 	while (y < H)
 		put_pixel(&v->screen, ray_x, y++, v->color[FLOOR]);
-	printf("here\n");
 }
 
 void	draw_rays(t_var *v)
@@ -133,7 +130,6 @@ void	draw_rays(t_var *v)
 	ray_x = 0;
 	while (ray_x < W)
 	{
-		printf("%d\n", ray_x);
 		camera_x = 2 * (double)ray_x / W - 1;
 		ray_dir = add_vec2(v->player_dir, mult_vec2(v->camera, camera_x));
 		ray_dir = norm_vec2(ray_dir);

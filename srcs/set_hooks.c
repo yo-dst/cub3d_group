@@ -128,8 +128,8 @@ int	loop_hook(t_var *v)
 		&& (v->redisplay || key_is_pressed(v->key)))
 	{
 		handle_key(v);
-		// draw_game(v);
-		draw_minimap(v);
+		draw_game(v);
+		//draw_minimap(v);
 		v->t_last_frame = t;
 		v->redisplay = 0;
 	}

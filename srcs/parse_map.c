@@ -225,7 +225,6 @@ int parse_map_and_init(t_var *v, char **map_before_parse)
 {
     char **map;
 
-
     if (!map_before_parse)
         return (print_and_return_error("Invalid Map"));
     else if (check_incorect_map(map_before_parse))

@@ -3,8 +3,8 @@
 static int	valide_file_name(char *filename)
 {
 	int		i;
-	int 	j;
-	char *tmp;
+	int		j;
+	char	*tmp;
 
 	tmp = ".cub";
 	j = ft_strlen(tmp);
@@ -30,7 +30,7 @@ static	char	**file_to_strs(char	*path_file)
 	char	**file;
 	int		fd;
 	t_list	*tmp;
-	
+
 	tmp = NULL;
 	line = NULL;
 	fd = open(path_file, O_RDONLY);
@@ -49,7 +49,6 @@ static	char	**file_to_strs(char	*path_file)
 	return (file);
 }
 
-
 char	**get_map(char **file)
 {
 	char	**map;
@@ -58,43 +57,16 @@ char	**get_map(char **file)
 
 	i = 0;
 	j = 0;
-	while(file[i] && !is_map(file[i]))
+	while (file[i] && !is_map(file[i]))
 		i++;
 	if (!file[i])
 		return (NULL);
 	map = malloc(sizeof(char *) * (ft_strslen(file) - i + 1));
-	while(file[i])
+	while (file[i])
 		map[j++] = ft_strdup(file[i++]);
 	map[j] = 0;
 	return (map);
 }
-
-// char	**delete_empty_line(char **strs)
-// {
-// 	char	**new;
-// 	int		empty_line;
-// 	int		i;
-// 	int		j;
-
-// 	j = 0;
-// 	i = -1;
-// 	empty_line = 0;
-// 	while (strs[++i])
-// 	{
-// 		if (is_empty_line(strs[i]))
-// 			empty_line++;
-// 	}
-// 	new = malloc(sizeof(char *) * (ft_strslen(strs) - empty_line + 1));
-// 	i = -1;
-// 	while (strs[++i])
-// 	{
-// 		if (!is_empty_line(strs[i]))
-// 			new[j++] = ft_strdup(strs[i]);
-// 	}
-// 	new[j] = 0;
-// 	ft_free_strs(strs);
-// 	return (new);
-// }
 
 char	**get_textures(char **file)
 {
@@ -102,14 +74,41 @@ char	**get_textures(char **file)
 	int		i;
 
 	i = 0;
-	while(file[i] && !is_map(file[i]))
+	while (file[i] && !is_map(file[i]))
 		i++;
 	textures = malloc(sizeof(char *) * (i + 1));
 	i = -1;
-	while(file[++i] && !is_map(file[i]))
+	while (file[++i] && !is_map(file[i]))
 		textures[i] = ft_strdup(file[i]);
 	textures[i] = 0;
 	return (textures);
+}
+
+int	check_empty_line_on_map(char *path_file)
+{
+	char	*line;
+	int		fd;
+	int		check;
+
+	line = NULL;
+	check = 1;
+	fd = open(path_file, O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (check && is_map(line))
+			check = 0;
+		else if (!check && !ft_strncmp(line, "", ft_strlen(line)))
+		{
+			free(line);
+			return (print_and_return_error("Invalid map"));
+		}
+		free(line);
+	}
+	close(fd);
+	return (0);
 }
 
 int	parse_file(t_var *v, char *map_file)
@@ -123,6 +122,8 @@ int	parse_file(t_var *v, char *map_file)
 	else if (!valide_file_name(map_file))
 		return (print_and_return_error("Invalid file name"));
 	init_struct(v);
+	if (check_empty_line_on_map(map_file))
+		return (1);
 	file = file_to_strs(map_file);
 	textures = get_textures(file);
 	map = get_map(file);

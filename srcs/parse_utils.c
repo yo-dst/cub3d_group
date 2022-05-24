@@ -12,16 +12,6 @@ int	is_empty_line(char *line)
 	return (1);
 }
 
-int	free_tmp_error(t_parse **tmp)
-{
-	if ((*tmp)->textures)
-		ft_free_strs((*tmp)->textures);
-	if ((*tmp)->map)
-		ft_free_strs((*tmp)->map);
-	free(*tmp);
-	return (1);
-}
-
 void init_struct(t_var *v)
 {
 	v->txtr[NO].path = NULL;

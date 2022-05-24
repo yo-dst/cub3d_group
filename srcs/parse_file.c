@@ -115,21 +115,27 @@ char	**get_textures(char **file)
 int	parse_file(t_var *v, char *map_file)
 {
 	char	**file;
-	t_parse *tmp;
+	char	**map;
+	char	**textures;
 
 	if (!map_file)
 		return (print_and_return_error("Missing parameter"));
 	else if (!valide_file_name(map_file))
 		return (print_and_return_error("Invalid file name"));
 	init_struct(v);
-	tmp = malloc(sizeof(t_parse));
 	file = file_to_strs(map_file);
-	tmp->textures = get_textures(file);
-	tmp->map = get_map(file);
-	if (parse_textures(v, tmp->textures))
-		return (free_tmp_error(&tmp));
-	else if (parse_map_and_init(v, tmp->map))
-		return (free_tmp_error(&tmp));
-	free_tmp_error(&tmp);
+	textures = get_textures(file);
+	map = get_map(file);
+	if (parse_textures(v, textures) || parse_map_and_init(v, map))
+	{
+		if (textures)
+			ft_free_strs(textures);
+		if (map)
+			ft_free_strs(map);
+		return (1);
+	}
+	ft_free_strs(textures);
+	ft_free_strs(map);
+	ft_free_strs(file);
 	return (0);
 }

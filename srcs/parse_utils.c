@@ -16,7 +16,7 @@ int	free_tmp_error(t_parse **tmp)
 {
 	if ((*tmp)->textures)
 		ft_free_strs((*tmp)->textures);
-	else if ((*tmp)->map)
+	if ((*tmp)->map)
 		ft_free_strs((*tmp)->map);
 	free(*tmp);
 	return (1);

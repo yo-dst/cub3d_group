@@ -131,7 +131,6 @@ char    **replace_ws(char **map)
     while (map[++i])
         new[i] = replace_and_dup(map[i]);
     new[i] = 0;
-    ft_free_strs(map);
     return (new);
 }
 
@@ -238,5 +237,6 @@ int parse_map_and_init(t_var *v, char **map_before_parse)
     v->map_w = get_max_len(map);
     v->map = init_map(map);
     init_player(v);
+    ft_free_strs(map);
     return (0);
 }

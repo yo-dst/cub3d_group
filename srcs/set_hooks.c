@@ -28,7 +28,7 @@ int	exit_game(t_var *v)
 	int	i;
 
 	i = 0;
-	while (i < MAP_H)
+	while (i < v->map_h)
 		free(v->map[i++]);
 	free(v->map);
 	mlx_destroy_image(v->mlx, v->txtr[NO].img);

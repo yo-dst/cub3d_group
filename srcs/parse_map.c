@@ -196,27 +196,27 @@ void    init_player(t_var *v)
             if (v->map[i][j] == 'N')
             {
                 v->player = get_vec2(j + 0.5, i + 0.5);
-                v->player_dir = get_vec2(0, 1);
+                v->player_dir = get_vec2(0, -1);
                 v->camera = get_vec2(0.66, 0);
             }
             else if (v->map[i][j] == 'S')
             {
                 v->player = get_vec2(j + 0.5, i + 0.5);
-                v->player_dir = get_vec2(0, -1);
+                v->player_dir = get_vec2(0, 1);
                 v->camera = get_vec2(-0.66, 0);
             }
             else if (v->map[i][j] == 'W')
             {
                 v->player = get_vec2(j + 0.5, i + 0.5);
                 v->player_dir = get_vec2(-1, 0);
-                v->camera = get_vec2(0, 0.66); 
+                v->camera = get_vec2(0, -0.66); 
             }
             else if (v->map[i][j] == 'E')
             {
                 v->player = get_vec2(j + 0.5, i + 0.5);
                 v->player_dir = get_vec2(1, 0);
-                v->camera = get_vec2(0, -0.66);
-            }        
+                v->camera = get_vec2(0, 0.66);
+            }
         }
     }
 }

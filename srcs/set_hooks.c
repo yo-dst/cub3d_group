@@ -13,13 +13,13 @@ void	rotate_player(t_var *v, int direction)
 {
 	if (direction == CLOCKWISE)
 	{
-		v->player_dir = rotate_vec2(v->player_dir, -ROTATE_SPEED);
-		v->camera = rotate_vec2(v->camera, -ROTATE_SPEED);
+		v->player_dir = rotate_vec2(v->player_dir, ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, ROTATE_SPEED);
 	}
 	else if (direction == ANTICLOCKWISE)
 	{
-		v->player_dir = rotate_vec2(v->player_dir, ROTATE_SPEED);
-		v->camera = rotate_vec2(v->camera, ROTATE_SPEED);
+		v->player_dir = rotate_vec2(v->player_dir, -ROTATE_SPEED);
+		v->camera = rotate_vec2(v->camera, -ROTATE_SPEED);
 	}
 }
 
@@ -65,9 +65,9 @@ void	handle_key(t_var *v)
 		move_player(v, v->player_dir);
 	if (v->key.s == PRESSED)
 		move_player(v, inv_vec2(v->player_dir));
-	if (v->key.q == PRESSED)
-		move_player(v, get_vec2(-v->player_dir.y, v->player_dir.x));
 	if (v->key.d == PRESSED)
+		move_player(v, get_vec2(-v->player_dir.y, v->player_dir.x));
+	if (v->key.q == PRESSED)
 		move_player(v, get_vec2(v->player_dir.y, -v->player_dir.x));
 	if (v->key.left == PRESSED)
 		rotate_player(v, ANTICLOCKWISE);
@@ -128,6 +128,9 @@ int	loop_hook(t_var *v)
 		&& (v->redisplay || key_is_pressed(v->key)))
 	{
 		handle_key(v);
+		//printf("START\n");
+		//print_vec2("player", v->player);
+		//print_vec2("player_dir", v->player_dir);
 		draw_game(v);
 		//draw_minimap(v);
 		v->t_last_frame = t;
@@ -138,7 +141,7 @@ int	loop_hook(t_var *v)
 
 void	set_hooks(t_var *v)
 {
-	mlx_hook(v->win, MotionNotify, 0, &mouse_motion_hook, v);
+	//mlx_hook(v->win, MotionNotify, 0, &mouse_motion_hook, v);
 	mlx_hook(v->win, KeyPress, 0, &keypress_hook, v);
 	mlx_hook(v->win, KeyRelease, 0, &keyrelease_hook, v);
 	mlx_hook(v->win, DestroyNotify, 0, &exit_game, v);

@@ -30,18 +30,6 @@ t_vec2	get_step(t_vec2 ray_dir)
 	return (step);
 }
 
-t_vec2	protect_side_dist(t_vec2 side_dist)
-{
-	t_vec2	res;
-
-	res = side_dist;
-	if (side_dist.x == 0)
-		res.x = 0.0001;
-	if (side_dist.y == 0)
-		res.y = 0.0001;
-	return (res);
-}
-
 double	get_wall_dist(t_var *v, t_vec2 ray_dir, int *side)
 {
 	t_vec2	step;
@@ -55,12 +43,6 @@ double	get_wall_dist(t_var *v, t_vec2 ray_dir, int *side)
 	unit_dist.x = sqrt(1 + ((ray_dir.y / ray_dir.x) * (ray_dir.y / ray_dir.x)));
 	unit_dist.y = sqrt(1 + ((ray_dir.x / ray_dir.y) * (ray_dir.x / ray_dir.y)));
 	side_dist = get_first_side_dist(v, ray_dir, unit_dist);
-	//side_dist = protect_side_dist(side_dist);
-	
-	//print_vec2("ray_dir", ray_dir);
-	//print_vec2("unit_dist", unit_dist);
-	//print_vec2("side_dist", side_dist);
-	
 	while (v->map[(int)curr_cell.y][(int)curr_cell.x] != WALL)
 	{
 		if (side_dist.x < side_dist.y)
@@ -75,9 +57,7 @@ double	get_wall_dist(t_var *v, t_vec2 ray_dir, int *side)
 			curr_cell.y += step.y;
 			side_hit = HORIZONTAL;
 		}
-		//print_vec2("curr_cell", curr_cell);
 	}
-	
 	if (side_hit == VERTICAL && step.x > 0)
 		*side = EA;
 	else if (side_hit == VERTICAL && step.x < 0)
@@ -98,17 +78,14 @@ int	get_wall_height(t_var *v, t_vec2 ray_dir, int *txtr_x, int *side)
 	t_vec2	wall_vec;
 
 	wall_dist = get_wall_dist(v, ray_dir, side);
-	//printf("wall_dist: %f\n", wall_dist);
 	wall_hit = add_vec2(v->player, mult_vec2(ray_dir, wall_dist));
-	//print_vec2("wall_hit", wall_hit);
 	wall_vec = get_vec2(wall_hit.x - v->player.x, wall_hit.y - v->player.y);
-	wall_dist = wall_vec.x * v->player_dir.x + wall_vec.y * v->player_dir.y; // vector scalar projection to avoid fisheye effect
-	//printf("wall_dist: %f\n", wall_dist);
+	wall_dist = wall_vec.x * v->player_dir.x + wall_vec.y * v->player_dir.y;
 	if (*side == NO || *side == SO)
 		*txtr_x = (int)((wall_hit.x - (int)wall_hit.x) * v->txtr[*side].w);
 	else
 		*txtr_x = (int)((wall_hit.y - (int)wall_hit.y) * v->txtr[*side].w);
-	return ((double)H / wall_dist);
+	return (H * 0.75 / wall_dist);
 }
 
 unsigned int	get_txtr_color(t_img txtr, int y, int txtr_x, double txtr_step_y)
@@ -135,14 +112,12 @@ void	draw_ray(t_var *v, int ray_x, t_vec2 ray_dir)
 		put_pixel(&v->screen, ray_x, y++, v->color[CEIL]);
 	while (y < H && y < wall_start_y + wall_height)
 	{
-		//put_pixel(v, ray_x, y, v->color[side]);
 		put_pixel(&v->screen, ray_x, y,
 			get_pixel_color(v->txtr[side], txtr_x, (y - wall_start_y) * ((double)v->txtr[side].h / wall_height)));
 		y++;
 	}
 	while (y < H)
 		put_pixel(&v->screen, ray_x, y++, v->color[FLOOR]);
-	//printf("---\n");
 }
 
 void	draw_rays(t_var *v)
@@ -154,7 +129,6 @@ void	draw_rays(t_var *v)
 	ray_x = 0;
 	while (ray_x < W)
 	{
-		//printf("%d\n", ray_x);
 		camera_x = 2 * (double)ray_x / W - 1;
 		ray_dir = add_vec2(v->player_dir, mult_vec2(v->camera, camera_x));
 		ray_dir = norm_vec2(ray_dir);

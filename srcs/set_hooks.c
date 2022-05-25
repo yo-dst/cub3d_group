@@ -128,9 +128,6 @@ int	loop_hook(t_var *v)
 		&& (v->redisplay || key_is_pressed(v->key)))
 	{
 		handle_key(v);
-		//printf("START\n");
-		//print_vec2("player", v->player);
-		//print_vec2("player_dir", v->player_dir);
 		draw_game(v);
 		//draw_minimap(v);
 		v->t_last_frame = t;

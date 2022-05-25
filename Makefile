@@ -52,7 +52,7 @@ OBJ_PFX = $(addprefix $(OBJ_DIR)/, $(OBJ))
 all: $(NAME)
 
 $(NAME): $(OBJ_PFX)
-	@make -C libft
+	@make -j -C libft
 	@printf $(BLUE)
 	$(CC) -o $(NAME) $(OBJ_PFX) $(LIBS) -framework OpenGL -framework AppKit
 	@printf $(NC)

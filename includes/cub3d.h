@@ -11,12 +11,12 @@
 
 # define MAP_H 20
 # define MAP_W 20
-# define W 100
-# define H 100
+# define W 800
+# define H 800
 
 # define T_PER_FRAME (1000.0 / 60)
 
-# define MOVE_SPEED 0.5
+# define MOVE_SPEED 0.05
 # define ROTATE_SPEED 0.03
 
 # define HORIZONTAL 0

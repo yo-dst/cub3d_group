@@ -43,7 +43,7 @@ SRC	= 	main.c \
 		parse_textures.c	\
 		parse_map.c		\
 		dev.c	\
-		minimap.c \
+		draw_minimap.c \
 
 OBJ	=	$(SRC:%.c=%.o)
 

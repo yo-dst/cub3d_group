@@ -129,7 +129,9 @@ int	loop_hook(t_var *v)
 	{
 		handle_key(v);
 		draw_game(v);
-		//draw_minimap(v);
+		draw_minimap(v);
+		mlx_put_image_to_window(v->mlx, v->win, v->screen.img, 0, 0);
+		mlx_put_image_to_window(v->mlx, v->win, v->minimap.img, 25, 25);
 		v->t_last_frame = t;
 		v->redisplay = 0;
 	}
@@ -138,7 +140,7 @@ int	loop_hook(t_var *v)
 
 void	set_hooks(t_var *v)
 {
-	//mlx_hook(v->win, MotionNotify, 0, &mouse_motion_hook, v);
+	mlx_hook(v->win, MotionNotify, 0, &mouse_motion_hook, v);
 	mlx_hook(v->win, KeyPress, 0, &keypress_hook, v);
 	mlx_hook(v->win, KeyRelease, 0, &keyrelease_hook, v);
 	mlx_hook(v->win, DestroyNotify, 0, &exit_game, v);

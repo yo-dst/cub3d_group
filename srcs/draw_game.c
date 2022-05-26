@@ -140,5 +140,4 @@ void	draw_rays(t_var *v)
 void	draw_game(t_var *v)
 {
 	draw_rays(v);
-	mlx_put_image_to_window(v->mlx, v->win, v->screen.img, 0, 0);
 }

@@ -9,10 +9,10 @@
 # include <sys/time.h>
 # include <fcntl.h>
 
-# define MAP_H 20
-# define MAP_W 20
 # define W 800
 # define H 800
+
+# define MINIMAP_RADIUS 6
 
 # define T_PER_FRAME (1000.0 / 60)
 
@@ -116,6 +116,7 @@ typedef struct s_var
 	t_vec2			camera; // screen_plane
 	t_img			txtr[4];
 	t_img			minimap;
+	double			minimap_radius;
 }	t_var;
 
 //	parse_map.c

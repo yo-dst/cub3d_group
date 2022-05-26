@@ -2,8 +2,9 @@
 
 int	init_minimap(t_var *v)
 {
-	v->minimap.h = H / 5;
-	v->minimap.w = W / 5;
+	v->minimap.h = H / 4;
+	v->minimap.w = W / 4;
+	v->minimap_radius = MINIMAP_RADIUS;
 	v->minimap.img = mlx_new_image(v->mlx, v->minimap.w, v->minimap.h);
 	if (!v->minimap.img)
 		return (1);

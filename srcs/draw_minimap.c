@@ -19,7 +19,7 @@ void	draw_minimap_border(t_var *v)
         {
             dist = (center.x - i) * (center.x - i) + (center.y - j) * (center.y - j);
             if (dist >= x - 200 && dist <= x + 200)
-				put_pixel(&v->minimap, i, j, BLACK);
+				put_pixel(&v->minimap, i, j, 0x52ffffff);
             j++;
         }
         i++;
@@ -46,7 +46,7 @@ void    draw_grid(t_var *v)
             pixel_pos = add_vec2(get_vec2(v->player.x - v->minimap_radius, v->player.y - v->minimap_radius), pixel_pos);
             if (pixel_pos.x < 0 || pixel_pos.y < 0 || pixel_pos.x > v->map_w || pixel_pos.y > v->map_h)
                 continue ;
-            else if (pixel_pos.x - (int)pixel_pos.x < 0.1 || pixel_pos.y - (int)pixel_pos.y < 0.1)
+            else if (pixel_pos.x - (int)pixel_pos.x < 0.2 || pixel_pos.y - (int)pixel_pos.y < 0.2)
                 put_pixel(&v->minimap, j, i, 0x010101);
         }
     }
@@ -73,7 +73,7 @@ void    draw_map(t_var *v)
             pixel_pos = add_vec2(get_vec2(v->player.x - v->minimap_radius, v->player.y - v->minimap_radius),
                 pixel_pos);
             if (pixel_pos.x < 0 || pixel_pos.y < 0 || pixel_pos.x > v->map_w || pixel_pos.y > v->map_h)
-                put_pixel(&v->minimap, j, i, GREEN_YELLOW);
+                put_pixel(&v->minimap, j, i, 0xff0000ff);
             else if (v->map[(int)pixel_pos.y][(int)pixel_pos.x] == WALL)
                 put_pixel(&v->minimap, j, i, 0xA9A9A9);
             else

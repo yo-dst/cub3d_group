@@ -80,7 +80,7 @@ int	get_wall_height(t_var *v, t_vec2 ray_dir, int *txtr_x, int *side)
 	wall_dist = get_wall_dist(v, ray_dir, side);
 	wall_hit = add_vec2(v->player, mult_vec2(ray_dir, wall_dist));
 	wall_vec = get_vec2(wall_hit.x - v->player.x, wall_hit.y - v->player.y);
-	wall_dist = wall_vec.x * v->player_dir.x + wall_vec.y * v->player_dir.y;
+	wall_dist = wall_vec.x * v->player_dir.x + wall_vec.y * v->player_dir.y; // avoid fisheye effect
 	if (*side == NO || *side == SO)
 		*txtr_x = (int)((wall_hit.x - (int)wall_hit.x) * v->txtr[*side].w);
 	else

@@ -74,9 +74,9 @@ void    draw_map(t_var *v)
             if (pixel_pos.x < 0 || pixel_pos.y < 0 || pixel_pos.x > v->map_w || pixel_pos.y > v->map_h)
                 put_pixel(&v->minimap, j, i, 0xff0000ff);
             else if (v->map[(int)pixel_pos.y][(int)pixel_pos.x] == WALL)
-                put_pixel(&v->minimap, j, i, 0x08A9A9A9);
+                put_pixel(&v->minimap, j, i, 0xA9A9A9);
             else
-                put_pixel(&v->minimap, j, i, 0x08FFFFFF);
+                put_pixel(&v->minimap, j, i, 0xFFFFFF);
         }
     }
 }

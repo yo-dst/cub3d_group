@@ -12,7 +12,7 @@
 # define W 800
 # define H 800
 
-# define MINIMAP_RADIUS 6
+# define MINIMAP_RADIUS 5
 
 # define T_PER_FRAME (1000.0 / 60)
 

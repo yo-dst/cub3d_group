@@ -9,7 +9,7 @@ void	draw_minimap_border(t_var *v)
     t_vec2  center;
 
     center = get_vec2(v->minimap.w / 2, v->minimap.h / 2);
-    x = v->minimap.h * 0.5;
+    x = (v->minimap.h - 5) * 0.5;
     x = x * x;
     i = 0;
     while (i < v->minimap.h)
@@ -47,7 +47,7 @@ void    draw_grid(t_var *v)
             if (pixel_pos.x < 0 || pixel_pos.y < 0 || pixel_pos.x > v->map_w || pixel_pos.y > v->map_h)
                 continue ;
             else if (pixel_pos.x - (int)pixel_pos.x < 0.2 || pixel_pos.y - (int)pixel_pos.y < 0.2)
-                put_pixel(&v->minimap, j, i, 0x010101);
+                put_pixel(&v->minimap, j, i, 0xff010101);
         }
     }
 }
@@ -61,7 +61,6 @@ void    draw_map(t_var *v)
     t_vec2  pixel_pos;
 
     i = -1;
-    v->minimap_radius = 6;
     coef_x = v->minimap_radius * 2 / v->minimap.w;
     coef_y = v->minimap_radius * 2 / v->minimap.h;
     while (++i < v->minimap.h)
@@ -75,9 +74,9 @@ void    draw_map(t_var *v)
             if (pixel_pos.x < 0 || pixel_pos.y < 0 || pixel_pos.x > v->map_w || pixel_pos.y > v->map_h)
                 put_pixel(&v->minimap, j, i, 0xff0000ff);
             else if (v->map[(int)pixel_pos.y][(int)pixel_pos.x] == WALL)
-                put_pixel(&v->minimap, j, i, 0xA9A9A9);
+                put_pixel(&v->minimap, j, i, 0x08A9A9A9);
             else
-                put_pixel(&v->minimap, j, i, 0xFFFFFF);
+                put_pixel(&v->minimap, j, i, 0x08FFFFFF);
         }
     }
 }
@@ -91,7 +90,7 @@ void    make_minimap_round(t_var *v)
     t_vec2  center;
 
     center = get_vec2(v->minimap.w / 2, v->minimap.h / 2);
-    x = v->minimap.h * 0.5;
+    x = (v->minimap.h - 5) * 0.5;
     x = x * x;
     i = 0;
     while (i < v->minimap.h)

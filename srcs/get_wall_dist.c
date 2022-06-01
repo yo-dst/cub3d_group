@@ -6,7 +6,7 @@
 /*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:31:30 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 12:27:44 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:32:07 by ydanset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ double	get_wall_dist(t_var *v, t_vec2 ray_dir, int *side)
 		}
 	}
 	get_side(side, step, side_hit);
-	return (calc_wall_dist(side_hit, unit_dist, side_dist));
+	return (calc_wall_dist(side_hit, side_dist, unit_dist));
 }

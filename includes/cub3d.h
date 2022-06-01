@@ -6,7 +6,7 @@
 /*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:25 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 11:08:33 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:27:27 by ydanset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 
 # define MINIMAP_RADIUS 5
 
-# define T_PER_FRAME (1000.0 / 60)
+// 1000 / 60
+# define T_PER_FRAME 16.6666666667
 
 # define MOVE_SPEED 0.05
 # define ROTATE_SPEED 0.03
@@ -100,7 +101,7 @@ typedef struct s_img
 	char	*path;
 }	t_img;
 
-typedef struct	s_parse
+typedef struct s_parse
 {
 	char	**map;
 	char	**textures;
@@ -125,39 +126,39 @@ typedef struct s_var
 	unsigned int	color[6];
 	t_vec2			player;
 	t_vec2			player_dir;
-	t_vec2			camera; // screen_plane
+	t_vec2			camera;
 	t_img			txtr[4];
 	t_img			minimap;
 	double			minimap_radius;
 }	t_var;
 
 //	parse_map.c
-int		parse(t_var *v, char *map_file);
-int		parse_file(t_var *v, char *map_file);
-int		parse_map_and_init(t_var *v, char **map);
-int		**init_map(char **chars_map);
+int				parse(t_var *v, char *map_file);
+int				parse_file(t_var *v, char *map_file);
+int				parse_map_and_init(t_var *v, char **map);
+int				**init_map(char **chars_map);
 
 // parse_utils.char
-int		is_empty_line(char *line);
-int		free_tmp_error(t_parse **tmp);
-void	init_struct(t_var *v);
-int		is_map_char(char c);
-int		is_map(char *line);
-char	*ft_str_del_nl(char *str);
+int				is_empty_line(char *line);
+int				free_tmp_error(t_parse **tmp);
+void			init_struct(t_var *v);
+int				is_map_char(char c);
+int				is_map(char *line);
+char			*ft_str_del_nl(char *str);
 
 // parse_textures.c
-int	parse_textures(t_var *v, char **textures);
+int				parse_textures(t_var *v, char **textures);
 
 //	set_hooks.c
-void	set_hooks(t_var *v);
+void			set_hooks(t_var *v);
 
 //	init.c
-int		init_game(t_var *v);
-int		init_txtr(t_var *v);
+int				init_game(t_var *v);
+int				init_txtr(t_var *v);
 
 //	print_error.c
-void	print_error(char *msg);
-int		print_and_return_error(char *msg);
+void			print_error(char *msg);
+int				print_and_return_error(char *msg);
 
 //	utils.c
 void			put_pixel(t_img *img, int x, int y, unsigned int color);
@@ -166,34 +167,28 @@ double			get_dist(t_vec2 v1, t_vec2 v2);
 unsigned int	get_pixel_color(t_img img, int x, int y);
 
 //	draw_game.c
-void	draw_map(t_var *v);
-void	draw_game(t_var *v);
+void			draw_map(t_var *v);
+void			draw_game(t_var *v);
+t_vec2			get_first_side_dist(t_var *v, t_vec2 ray_dir, t_vec2 unit_dist);
 
-//	draw.c
-void	draw_circle(t_img *img, int x, int y, int radius, unsigned int color, int full);
-void	draw_rect(t_img *img, int x, int y, int w, int h, unsigned int color);
-void	draw_line(t_img *img, int x1, int y1, int x2, int y2);
+//	get_wall_dist.c
+double			get_wall_dist(t_var *v, t_vec2 ray_dir, int *side);
 
 //	vec2.c
-void	set_vec2(t_vec2 *v, double x, double y);
-t_vec2	get_vec2(double x, double y);
-void	print_vec2(char *pfx, t_vec2 v);
-t_vec2	add_vec2(t_vec2 v1, t_vec2 v2);
-t_vec2	mult_vec2(t_vec2 v, float scalar);
-t_vec2	norm_vec2(t_vec2 v);
-t_vec2	inv_vec2(t_vec2 v);
-t_vec2	rotate_vec2(t_vec2 v, double angle);
+void			set_vec2(t_vec2 *v, double x, double y);
+t_vec2			get_vec2(double x, double y);
+void			print_vec2(char *pfx, t_vec2 v);
+t_vec2			add_vec2(t_vec2 v1, t_vec2 v2);
+t_vec2			mult_vec2(t_vec2 v, float scalar);
+t_vec2			norm_vec2(t_vec2 v);
+t_vec2			inv_vec2(t_vec2 v);
+t_vec2			rotate_vec2(t_vec2 v, double angle);
 
 //	time.c
-long	get_time(void);
-long	time_diff(long start, long end);
-
-//	dev.c
-void	ft_puttabs(int **tabs, int x, int y);
-void	test(t_var *v);
-
+long			get_time(void);
+long			time_diff(long start, long end);
 
 //	minimap.c
-void	draw_minimap(t_var *v);
+void			draw_minimap(t_var *v);
 
 #endif

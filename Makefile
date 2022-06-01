@@ -6,7 +6,7 @@
 #    By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 04:39:29 by jbettini          #+#    #+#              #
-#    Updated: 2022/06/01 11:09:21 by ydanset          ###   ########.fr        #
+#    Updated: 2022/06/01 11:38:59 by ydanset          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC	= 	main.c \
 		parse_textures.c	\
 		parse_map.c		\
 		draw_minimap.c \
+		get_wall_dist.c	\
 
 OBJ	=	$(SRC:%.c=%.o)
 

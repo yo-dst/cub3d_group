@@ -6,7 +6,7 @@
 #    By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 04:39:29 by jbettini          #+#    #+#              #
-#    Updated: 2022/06/01 12:57:25 by jbettini         ###   ########.fr        #
+#    Updated: 2022/06/01 13:05:25 by jbettini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRC	= 	main.c \
 		utils.c \
 		vec2_0.c \
 		vec2_1.c \
-
+		get_wall_dist.c	\
 
 OBJ	=	$(SRC:%.c=%.o)
 

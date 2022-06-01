@@ -6,7 +6,7 @@
 /*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:35 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 12:40:08 by jbettini         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:22:05 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	draw_minimap_border(t_var *v)
 			dist = (center.x - i) * (center.x - i) + \
 				(center.y - j) * (center.y - j);
 			if (dist >= x - 200 && dist <= x + 200)
-				put_pixel(&v->minimap, i, j, 0x52ffffff);
+				put_pixel(&v->minimap, i, j, 0x52202020);
 			j++;
 		}
 		i++;

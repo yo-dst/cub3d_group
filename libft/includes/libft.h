@@ -6,7 +6,7 @@
 /*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:52:56 by ydanset           #+#    #+#             */
-/*   Updated: 2022/05/20 16:32:57 by jbettini         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:18:41 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void			ft_lstadd_back(t_list **alst, t_list *new);
 void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
+					void (*del)(void *));
 void			ft_putstr(char *str);
 void			ft_putchar(char c);
 long long int	ft_atoi_long_long(const char *str);

@@ -6,7 +6,7 @@
 /*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:03:31 by jbettini          #+#    #+#             */
-/*   Updated: 2022/06/01 13:04:08 by jbettini         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:14:56 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,11 +152,11 @@ int				parse_textures(t_var *v, char **textures);
 
 //	set_hooks.c
 void			set_hooks(t_var *v);
+void			handle_key(t_var *v);
 
 //	set_hooks_2.c
-int	exit_game(t_var *v);
-int	mouse_motion_hook(int x, int y, t_var *v);
-
+int				exit_game(t_var *v);
+int				mouse_motion_hook(int x, int y, t_var *v);
 
 //	init.c
 int				init_game(t_var *v);
@@ -178,7 +178,7 @@ void			draw_game(t_var *v);
 t_vec2			get_first_side_dist(t_var *v, t_vec2 ray_dir, t_vec2 unit_dist);
 
 //	draw.c
-void	draw_circle(t_img *img, int x, int y, int radius);
+void			draw_circle(t_img *img, int x, int y, int radius);
 
 //	get_wall_dist.c
 double			get_wall_dist(t_var *v, t_vec2 ray_dir, int *side);
@@ -199,5 +199,19 @@ long			time_diff(long start, long end);
 
 //	minimap.c
 void			draw_minimap(t_var *v);
+
+int				init_minimap(t_var *v);
+void			init_key(t_key *key);
+void			get_mouse_x_limits(t_var *v);
+int				valide_file_name(char *filename);
+int				get_max_len(char **map);
+int				*dup_str_to_tab(char *str, int len);
+int				check_incorect_map(char **map);
+char			**replace_ws(char **map);
+int				check_border(char **map);
+int				is_player(char c);
+int				multiple_comma(char *words);
+int				number_too_long(char **rgb);
+int				free_color_error(char **to_free, char *msg, char *hexa_rgb);
 
 #endif

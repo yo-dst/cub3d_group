@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+         #
+#    By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 04:39:29 by jbettini          #+#    #+#              #
-#    Updated: 2022/05/17 20:10:29 by jbettini         ###   ########.fr        #
+#    Updated: 2022/06/01 11:09:21 by ydanset          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ SRC	= 	main.c \
 		parse_utils.c	\
 		parse_textures.c	\
 		parse_map.c		\
-		dev.c	\
 		draw_minimap.c \
 
 OBJ	=	$(SRC:%.c=%.o)

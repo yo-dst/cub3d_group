@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+         #
+#    By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 04:39:29 by jbettini          #+#    #+#              #
-#    Updated: 2022/06/01 11:09:21 by ydanset          ###   ########.fr        #
+#    Updated: 2022/06/01 12:57:25 by jbettini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,20 +29,28 @@ LIBS	=	-Llibft -lft -Lminilibx -lmlx
 HEADERS	=	-I$(I_DIR) -Ilibft/includes -Iminilibx
 
 SRC	= 	main.c \
-		init.c	\
-		set_hooks.c	\
-		print_error.c	\
-		utils.c	\
-		draw_game.c	\
-		draw.c	\
-		vec2.c	\
-		time.c	\
-		parse.c	\
-		parse_file.c	\
-		parse_utils.c	\
-		parse_textures.c	\
-		parse_map.c		\
 		draw_minimap.c \
+		draw_game.c \
+		draw.c \
+		init.c \
+		init_2.c \
+		parse_file_2.c \
+		parse_file.c \
+		parse_map.c \
+		parse_map_2.c \
+		parse_map_3.c \
+		parse_textures.c \
+		parse_textures_2.c \
+		parse_utils.c \
+		parse.c \
+		print_error.c \
+		set_hooks_2.c \
+		set_hooks.c \
+		time.c \
+		utils.c \
+		vec2_0.c \
+		vec2_1.c \
+
 
 OBJ	=	$(SRC:%.c=%.o)
 

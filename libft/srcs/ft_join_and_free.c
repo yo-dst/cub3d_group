@@ -6,7 +6,7 @@
 /*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 05:26:11 by jbettini          #+#    #+#             */
-/*   Updated: 2022/05/13 10:06:46 by jbettini         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:55:06 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,11 @@ void	ft_free_strs(char **strs)
 	int	i;
 
 	i = -1;
-	while (strs[++i])
-		free(strs[i]);
-	free(strs);
-	strs = NULL;
+	if (strs)
+	{
+		while (strs[++i])
+			free(strs[i]);
+		free(strs);
+		strs = NULL;
+	}
 }

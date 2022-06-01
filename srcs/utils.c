@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:52 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 11:04:52 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:50:49 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned int	get_pixel_color(t_img img, int x, int y)
 {
-	int				index_pixel;
+	int	index_pixel;
 
 	index_pixel = y * img.size_line + x * 4;
 	return (*(int *)(img.data + index_pixel));
@@ -50,5 +50,6 @@ unsigned int	rgb_to_int(t_rgb rgb)
 
 double	get_dist(t_vec2 v1, t_vec2 v2)
 {
-	return (sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y)));
+	return (sqrt((v2.x - v1.x) * (v2.x - v1.x) \
+		+ (v2.y - v1.y) * (v2.y - v1.y)));
 }

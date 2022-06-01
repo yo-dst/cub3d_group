@@ -3,54 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:44 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 11:04:45 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 11:31:28 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-# define HEX "0123456789ABCDEF"
-
-int	free_color_error(char **to_free, char *msg, char *hexa_rgb)
-{
-	ft_free_strs(to_free);
-	if (hexa_rgb)
-		free(hexa_rgb);
-	return (print_and_return_error(msg));
-}
-
-int	number_too_long(char **rgb)
-{
-	int	i;
-
-	i = -1;
-	while (rgb[++i])
-	{
-		if (ft_strlen(rgb[i]) > 8)
-			return (1);
-	}
-	return (0);
-}
-
-int	multiple_comma(char *words)
-{
-	int	i;
-	int	comma;
-
-	i = -1;
-	comma = 0;
-	while (words[++i])
-	{
-		if (words[i] == ',')
-			comma++;
-	}
-	if (comma > 2)
-		return (1);
-	return (0);
-}
 
 int	assign_collor(char *words, unsigned int *color)
 {
@@ -84,7 +44,7 @@ char	*join_words(char **words)
 {
 	char	*str;
 	int		i;
-	
+
 	i = -1;
 	str = NULL;
 	while (words[++i])
@@ -103,13 +63,12 @@ int	check_and_assign(char **words, t_var *v)
 	else if (!ft_strncmp(words[0], "WE", 2) && !v->txtr[WE].path)
 		v->txtr[WE].path = ft_strdup(words[1]);
 	else if (!ft_strncmp(words[0], "F", 1))
-		return (assign_collor(join_words(&words[1]),  &(v->color[FLOOR])));
+		return (assign_collor(join_words(&words[1]), &(v->color[FLOOR])));
 	else if (!ft_strncmp(words[0], "C", 1))
 		return (assign_collor(join_words(&words[1]), &(v->color[CEIL])));
 	else
 		return (1);
 	return (0);
-
 }
 
 int	free_textures_error(t_var *v, char *msg, char **words)

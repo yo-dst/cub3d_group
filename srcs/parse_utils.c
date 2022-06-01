@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:45 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 11:04:46 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 11:27:37 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_empty_line(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] && ft_is_whitespace(line[i]))
@@ -24,7 +24,7 @@ int	is_empty_line(char *line)
 	return (1);
 }
 
-void init_struct(t_var *v)
+void	init_struct(t_var *v)
 {
 	v->txtr[NO].path = NULL;
 	v->txtr[SO].path = NULL;
@@ -34,7 +34,6 @@ void init_struct(t_var *v)
 	v->color[FLOOR] = -42;
 	v->map = NULL;
 }
-
 
 int	is_map_char(char c)
 {

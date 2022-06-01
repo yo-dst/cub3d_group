@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:47 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 11:04:47 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 11:26:53 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	parse(t_var *v, char *map_file)
 {
-	
 	if (parse_file(v, map_file))
 		return (1);
 	return (0);

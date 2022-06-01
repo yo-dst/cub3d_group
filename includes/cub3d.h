@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:25 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 11:08:33 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:56:30 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define H 800
 
 # define MINIMAP_RADIUS 5
+# define HEX "0123456789ABCDEF"
 
 # define T_PER_FRAME (1000.0 / 60)
 
@@ -151,6 +152,11 @@ int	parse_textures(t_var *v, char **textures);
 //	set_hooks.c
 void	set_hooks(t_var *v);
 
+//	set_hooks_2.c
+int	exit_game(t_var *v);
+int	mouse_motion_hook(int x, int y, t_var *v);
+
+
 //	init.c
 int		init_game(t_var *v);
 int		init_txtr(t_var *v);
@@ -170,7 +176,7 @@ void	draw_map(t_var *v);
 void	draw_game(t_var *v);
 
 //	draw.c
-void	draw_circle(t_img *img, int x, int y, int radius, unsigned int color, int full);
+void	draw_circle(t_img *img, int x, int y, int radius);
 void	draw_rect(t_img *img, int x, int y, int w, int h, unsigned int color);
 void	draw_line(t_img *img, int x1, int y1, int x2, int y2);
 

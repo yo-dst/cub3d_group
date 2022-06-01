@@ -3,51 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:39 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 11:04:39 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 12:04:41 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	init_minimap(t_var *v)
-{
-	v->minimap.h = H / 4;
-	v->minimap.w = W / 4;
-	v->minimap_radius = MINIMAP_RADIUS;
-	v->minimap.img = mlx_new_image(v->mlx, v->minimap.w, v->minimap.h);
-	if (!v->minimap.img)
-		return (1);
-	v->minimap.data = mlx_get_data_addr(v->minimap.img, &v->minimap.bpp, \
-		&v->minimap.size_line, &v->minimap.endian);
-	v->minimap.path = NULL;
-	return (0);
-}
-
-void	get_mouse_x_limits(t_var *v)
-{
-	int	x;
-	int	y;
-
-	mlx_mouse_move(v->win, -10000, 0);
-	mlx_mouse_get_pos(v->win, &x, &y);
-	v->mouse_x_min = x;
-	mlx_mouse_move(v->win, 10000, 0);
-	mlx_mouse_get_pos(v->win, &x, &y);
-	v->mouse_x_max = x;
-}
-
-void	init_key(t_key *key)
-{
-	key->z = RELEASED;
-	key->s = RELEASED;
-	key->q = RELEASED;
-	key->d = RELEASED;
-	key->left = RELEASED;
-	key->right = RELEASED;
-}
 
 int	load_txtr(void *mlx, t_img *txtr, char *filename)
 {
@@ -65,7 +28,8 @@ int	load_txtr(void *mlx, t_img *txtr, char *filename)
 		free(err_msg);
 		return (1);
 	}
-	txtr->data = mlx_get_data_addr(txtr->img, &txtr->bpp, &txtr->size_line, &txtr->endian);
+	txtr->data = mlx_get_data_addr(txtr->img, &txtr->bpp, \
+		&txtr->size_line, &txtr->endian);
 	return (0);
 }
 
@@ -75,6 +39,16 @@ int	init_txtr(t_var *v)
 		|| load_txtr(v->mlx, &v->txtr[SO], "textures/greystone.xpm")
 		|| load_txtr(v->mlx, &v->txtr[EA], "textures/purplestone.xpm")
 		|| load_txtr(v->mlx, &v->txtr[WE], "textures/redbrick.xpm"))
+		return (1);
+	return (0);
+}
+
+int	init_game_norm(t_var *v)
+{
+	v->old_mouse_x = v->mouse_x;
+	v->redisplay = 1;
+	v->t_last_frame = get_time();
+	if (init_minimap(v))
 		return (1);
 	return (0);
 }
@@ -94,19 +68,15 @@ int	init_game(t_var *v)
 		print_error("mlx failure");
 		return (1);
 	}
-	v->screen.data = mlx_get_data_addr(v->screen.img, &v->screen.bpp, &v->screen.size_line, &v->screen.endian);
+	v->screen.data = mlx_get_data_addr(v->screen.img, &v->screen.bpp, \
+		&v->screen.size_line, &v->screen.endian);
 	init_key(&v->key);
 	if (init_txtr(v))
 		return (1);
 	get_mouse_x_limits(v);
 	mlx_mouse_move(v->win, W / 2, H / 2);
 	mlx_mouse_get_pos(v->win, &v->mouse_x, &v->mouse_y);
-	v->old_mouse_x = v->mouse_x;
-	v->redisplay = 1;
-	v->t_last_frame = get_time();
-	if (init_minimap(v))
+	if (init_game_norm(v))
 		return (1);
 	return (0);
 }
-
-

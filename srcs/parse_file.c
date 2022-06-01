@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydanset <ydanset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jbettini <jbettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:04:42 by ydanset           #+#    #+#             */
-/*   Updated: 2022/06/01 11:04:42 by ydanset          ###   ########.fr       */
+/*   Updated: 2022/06/01 11:58:32 by jbettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	valide_file_name(char *filename)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	tmp = ".cub";
-	j = ft_strlen(tmp);
-	i = ft_strlen(filename);
-	if (i < 4)
-		return (0);
-	else if (!filename[i])
-	{	
-		while (i && j)
-		{
-			if (filename[i] != tmp[j])
-				return (0);
-			i--;
-			j--;
-		}
-	}
-	return (1);
-}
 
 static	char	**file_to_strs(char	*path_file)
 {
@@ -141,10 +117,8 @@ int	parse_file(t_var *v, char *map_file)
 	map = get_map(file);
 	if (parse_textures(v, textures) || parse_map_and_init(v, map))
 	{
-		if (textures)
-			ft_free_strs(textures);
-		if (map)
-			ft_free_strs(map);
+		ft_free_strs(textures);
+		ft_free_strs(map);
 		return (1);
 	}
 	ft_free_strs(textures);
